@@ -2,13 +2,15 @@ import express from "express";
 import userRouter from './routes/user.js';
 import authRouter from './routes/auth.js';
 import bodyParser from "body-parser";
+import cors from "cors"
 
 
 const app = express();
-const porta = 3000;
+const porta = 5000;
 
 app.use(express.json())
 app.use(bodyParser.urlencoded({extended:false}))
+app.use(cors())
 
 
 app.use('/api/users/', userRouter);
