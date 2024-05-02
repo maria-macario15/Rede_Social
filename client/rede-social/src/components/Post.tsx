@@ -6,7 +6,8 @@ interface IPost{
     post_desc:string,
     img:string,
     username:string,
-    user_img:string
+    user_img:string,
+    created_at:string
 }
 
 interface IUser {
@@ -14,7 +15,7 @@ interface IUser {
     username: string
 }
 function Post(props:{post:IPost}){
-    const{post_desc, img, username, user_img}=props.post
+    const{post_desc, img, username, user_img, created_at}=props.post
 
     const [user, setUser] = useState<IUser | undefined>(undefined);
     useEffect(() => {
@@ -25,6 +26,9 @@ function Post(props:{post:IPost}){
     }, []);
     const userImgSrc = user?.user_img ?? "https://img.freepik.com/free-icon/user_318-159711.jpg";
 
+    let date = new Date(created_at)
+    let formatedDate = date.getDate()+"/"+(date.getMonth()+1) + "/" + date.getFullYear();
+
     return(
         <div className="w-1/3 bg-white wounded-lg p-4 shadow-md">
             <header className="flex gap-2 pb-4 border-2 items-center">
@@ -32,7 +36,7 @@ function Post(props:{post:IPost}){
                 alt="imagem do usuario que fez o post" />
                 <div className="flex flex-col">
                     <span className="font-semibold">{username}</span>
-                    <span className="text-xs">06/01/2023</span>
+                    <span className="text-xs">{formatedDate}</span>
                 </div>
                 </header>
                 {post_desc && (
