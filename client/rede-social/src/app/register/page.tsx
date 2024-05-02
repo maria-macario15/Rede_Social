@@ -2,7 +2,7 @@
 import AuthInput from "@/components/AuthInput";
 import { useState } from "react";
 import Link from "next/link";
-import axios from "axios"
+import { makeRequest } from "../../../axios";
 
 
 function Register() {
@@ -16,7 +16,7 @@ function Register() {
 
     const handleRegister= (e:any) => {
         e.preventDefault();
-        axios.post("http://localhost:5000/api/auth/register", { username,email, password, confirmPassword }).then((res) => {
+        makeRequest.post("auth/register", { username,email, password, confirmPassword }).then((res) => {
             console.log(res.data);
             setSuccess(res.data.msg);
             setError('');

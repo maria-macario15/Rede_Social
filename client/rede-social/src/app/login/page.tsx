@@ -1,9 +1,9 @@
 "use client";
 
 import AuthInput from "@/components/AuthInput";
-import axios from "axios";
 import Link from "next/link";
 import { useState } from "react";
+import { makeRequest } from "../../../axios";
 
 function Login() {
 
@@ -12,7 +12,7 @@ function Login() {
     const [error, setError]= useState('');
     const handleLogin = (e: any) => {
         e.preventDefault()
-        axios.post("http://localhost:5000/api/auth/login", { email, password }).then((res) => {
+        makeRequest.post("auth/login", { email, password }).then((res) => {
             console.log(res.data);
             setError('')
         }).catch((err) => {
