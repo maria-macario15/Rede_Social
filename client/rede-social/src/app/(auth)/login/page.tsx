@@ -2,23 +2,26 @@
 
 import AuthInput from "@/components/AuthInput";
 import Link from "next/link";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { makeRequest } from "../../../../axios";
 import { useRouter } from "next/navigation";
+import { UserContext } from "@/context/UserContext";
 
 function Login() {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
+    const {setUser}= useContext(UserContext)
 
 
     const router = useRouter();
     const handleLogin = (e: any) => {
         e.preventDefault();
         makeRequest.post("auth/login", { email, password }).then((res) => {
-            localStorage.setItem("rede-social:user", JSON.stringify(res.data.data.user));
-            localStorage.setItem("rede-social:token", JSON.stringify(res.data.data.token));
+            localStorage.setItem("rede-social:user", JSON.stringify(res.data.user)
+        );
+            setUser(res.data.user)
             setError('');
             router.push('/');
 

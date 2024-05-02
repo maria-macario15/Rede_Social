@@ -1,34 +1,36 @@
 "use client"
 
+import { useMutation } from "@tanstack/react-query";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { FaSearch, FaBell } from "react-icons/fa";
 import { TbMessageCircle2 } from "react-icons/tb";
+import { makeRequest } from "../../axios";
+import { UserContext } from "@/context/UserContext";
 
 function Header() {
 
-    const [user, setUser] = useState({ username: '', user_img: '' });
+    const {user, setUser} = useContext(UserContext);
     const [showMenu, setShowMenu] = useState(false);
     const router = useRouter();
 
-    let userImgSrc = user.user_img ?? "https://img.freepik.com/free-icon/user_318-159711.jpg";
+    let userImgSrc = user?.user_img ?? "https://img.freepik.com/free-icon/user_318-159711.jpg";
 
 
+   const mutation = useMutation({
+    mutationFn:async()=>{
+        return await makeRequest.post("auth/logout").then((res)=>{
+            res.data;
+        })
+    },
+    onSuccess:()=>{
 
-    useEffect(() => {
-        let value = localStorage.getItem("rede-social:user");
-        if (value) {
-            setUser(JSON.parse(value));
-        }
-    }, []);
-
-    const logout =(e:any)=>{
-        e.preventDefault();
-        localStorage.removeItem("rede-social:token");
-        router.push('/login');
-
+        setUser(undefined);
+        localStorage.removeItem('rede-social:user');
+        router.push('login');
     }
+   })
 
     return (
         <header className="w-full bg-white flex justify-between py-2 px-4 items-center shadow-md">
@@ -52,12 +54,12 @@ function Header() {
                             alt="imagem do perfil"
                             className="w-8 h-8 rounded-full"
                         />
-                        <span className="font-bold">{user.username}</span>
+                        <span className="font-bold">{user?.username}</span>
                     </button>
                     {showMenu &&(
                     <div className="absolute flex flex-clo bg-white p-4 shadow-md rounded-md gap-2 border-t right-[-8px]">
                         <Link href="" className="border-b whitespace-nowrap"> Editar perfil</Link> 
-                        <Link href="" onClick={(e)=>logout(e)}>Logout</Link>
+                        <button onClick={()=>mutation.mutate()}>Logout</button>
                     </div>)
                     }
 

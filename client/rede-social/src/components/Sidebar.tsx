@@ -1,23 +1,17 @@
 /* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
-import { useEffect, useState } from "react";
-
+import { useContext, useState } from "react";
+import { UserContext } from "@/context/UserContext";
 import { FaUserFriends, FaAlignLeft, FaPeopleArrows, FaStore, FaBookmark, FaFlag, FaCalendar } from "react-icons/fa"
 import { TbDeviceImac, TbClockHour4 } from "react-icons/tb"
 
 function Sidebar() {
-    interface IUser {
-        user_img: string,
-        username: string
-    }
-    const [user, setUser] = useState<IUser | undefined>(undefined);
-    useEffect(() => {
-        let value = localStorage.getItem("rede-social:user");
-        if (value) {
-            setUser(JSON.parse(value));
-        }
-    }, []);
+    const {user} = useContext(UserContext);
+
     const userImgSrc = user?.user_img ?? "https://img.freepik.com/free-icon/user_318-159711.jpg";
+  
+    
+    
     return (
         <aside className="pl-4">
             <nav className="flex flex-col gap-6 text-gray-600 font-semibold">
