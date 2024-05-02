@@ -5,8 +5,8 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Taruira Chaoka",
-  description: "rede social feita no espirito santo",
+  title: "Taruira Chapoka",
+  description: "A nova rede social criada no espirito santo",
 };
 
 export default function RootLayout({
