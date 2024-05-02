@@ -12,6 +12,10 @@ function Header() {
     const [showMenu, setShowMenu] = useState(false);
     const router = useRouter();
 
+    let userImgSrc = user.user_img ?? "https://img.freepik.com/free-icon/user_318-159711.jpg";
+
+
+
     useEffect(() => {
         let value = localStorage.getItem("rede-social:user");
         if (value) {
@@ -44,16 +48,16 @@ function Header() {
                 </div>
                 <div className="relative" onMouseLeave={()=>setShowMenu(false)}>
                     <button className="flex gap-2 items-center " onClick={()=>setShowMenu(!showMenu)}>
-                        <img src={user.user_img.length > 0 ? user.user_img : "https://img.freepik.com/free-icon/user_318-159711.jpg"}
+                        <img src= {userImgSrc}
                             alt="imagem do perfil"
                             className="w-8 h-8 rounded-full"
                         />
                         <span className="font-bold">{user.username}</span>
                     </button>
                     {showMenu &&(
-                    <div className="absolute flex flex-clo bg-white p-4 shadow-md rounded-md gap-2 border-t whitespace-nowrap right-[-8px]">
-                        <Link href="" className="border-b"> Editar perfil</Link>
-                        <Link href=""onClick={(e)=>logout(e)}>Logout</Link>
+                    <div className="absolute flex flex-clo bg-white p-4 shadow-md rounded-md gap-2 border-t right-[-8px]">
+                        <Link href="" className="border-b whitespace-nowrap"> Editar perfil</Link> 
+                        <Link href="" onClick={(e)=>logout(e)}>Logout</Link>
                     </div>)
                     }
 
