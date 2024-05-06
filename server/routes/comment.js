@@ -1,10 +1,10 @@
 import express from "express";
-import{creatPost,getPost} from "../controllers/post.js";
+import{creatComment,getComment} from "../controllers/comment.js";
 import {checkToken} from "../middleware/tokenValidation.js";
 
 const router = express.Router();
 
-router.post("/",checkToken,creatPost);
-router.get("/",checkToken,getPost);
+router.post("/",checkToken,creatComment);
+router.get("/",checkToken,getComment);
 
 export default router;

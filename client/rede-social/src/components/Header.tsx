@@ -19,18 +19,18 @@ function Header() {
 
 
    const mutation = useMutation({
-    mutationFn:async()=>{
+    mutationFn: async()=>{
         return await makeRequest.post("auth/logout").then((res)=>{
             res.data;
-        })
+        });
     },
     onSuccess:()=>{
 
         setUser(undefined);
         localStorage.removeItem('rede-social:user');
         router.push('login');
-    }
-   })
+    },
+   });
 
     return (
         <header className="w-full bg-white flex justify-between py-2 px-4 items-center shadow-md">

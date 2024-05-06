@@ -7,6 +7,7 @@ import { makeRequest } from "../../../../axios";
 import { useRouter } from "next/navigation";
 import { UserContext } from "@/context/UserContext";
 
+
 function Login() {
 
     const [email, setEmail] = useState('');
@@ -21,13 +22,13 @@ function Login() {
         makeRequest.post("auth/login", { email, password }).then((res) => {
             localStorage.setItem("rede-social:user", JSON.stringify(res.data.user)
         );
-            setUser(res.data.user)
+            setUser(res.data.user);
             setError('');
             router.push('/');
 
         }).catch((err) => {
             console.log(err);
-            setError(err.response.data.msg);
+            setError(err.response.msg);
         });
     };
     return (
@@ -36,7 +37,7 @@ function Login() {
             <form className="flex flex-col bg-white px-6 py-14 rounded-2xl gap-11 text-gray-600 w-1/4">
                 <h1 className="font-bold text=2xl ">LOGIN</h1>
                 <AuthInput label="Email:" newState={setEmail} />
-                <AuthInput label="Senha:" newState={setPassword} />
+                <AuthInput label="Senha:" newState={setPassword}IsPassword />
                 {error.length > 0 && <span className="text-red-600">*{error}</span>}
                 <button className="bg-green-600 py-3 font-bold text-white rounded-lg hover:bg-green-800" onClick={(e) => handleLogin(e)}
                 >ENTRAR</button>

@@ -21,7 +21,7 @@ interface User {
 
 const intialValue = {
     user: undefined,
-    setUser: () => { },
+    setUser: () => {},
 };
 
 export const UserContext = createContext<User>(intialValue)
@@ -40,6 +40,4 @@ export const UserContextProvider = ({ children }: ContextProps) => {
         </UserContext.Provider>
 
     )
-
-
-}
+};

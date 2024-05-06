@@ -6,7 +6,7 @@ export const creatPost = (req, res) => {
         return res.status(422).json({ msg: " O pos precisa ter um texto ou uma imagem ! " });
     }
 
-    db.query('INSERT INTO post SET ?', { post_desc, img, userId }, (error) => {
+    db.query('INSERT INTO posts SET ?', { post_desc, img, userId }, (error) => {
         if (error) {
             console.debug(error);
             return res.status(500).json({ msg: "Aconteceu algum erro no servidor, tente novamente mais tarde!!!!" });
@@ -17,7 +17,7 @@ export const creatPost = (req, res) => {
 };
 
 export const getPost = (req, res) => {
-    db.query("SELECT    p.*, u.username, u.user_img FROM posts as p JOIN user as u ON (u.id = p.userId)",
+    db.query("SELECT    p.*, u.username, u.user_img FROM posts as p JOIN user as u ON (u.id = p.userId) ORDER BY created_at DESC",
         (error, data) => {
             if (error) {
                 console.debug(error);
