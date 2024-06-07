@@ -6,11 +6,11 @@ import { UserContextProvider } from "@/context/UserContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
-export const metadata = {
-  title: "Taruira Chapoka",
-  description: "A nova rede social criada no espirito santo",
+/*export const metadata = {
+  title: "Taruira Chapoca",
+  description: "A nova rede social criada no Brasil",
 };
-
+*/
 
 export default function RootLayout({
   
