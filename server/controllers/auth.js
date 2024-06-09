@@ -2,8 +2,6 @@ import jwt from "jsonwebtoken";
 import { db } from "../connect.js";
 import bcrypt from "bcrypt";
 
-
-
 export const register = (req, res) => {
     const { username, email, password, confirmPassword } = req.body;
     if (!username) {
@@ -28,7 +26,7 @@ export const register = (req, res) => {
             if (data.length > 0) {
                 return res.status(500).json({ msg: "Este email já esta sendo utilizado" });
             } else {
-                const passwordHash = await bcrypt.hash(password, 8)
+                const passwordHash = await bcrypt.hash(password, 8);
                 db.query(
                     "INSERT INTO user SET?", { username, email, password: passwordHash },
                     (error) => {
@@ -40,7 +38,6 @@ export const register = (req, res) => {
                         }
                     }
                 )
-
             }
         })
 };

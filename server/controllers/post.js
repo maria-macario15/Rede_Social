@@ -17,16 +17,31 @@ export const creatPost = (req, res) => {
 };
 
 export const getPost = (req, res) => {
-    db.query("SELECT    p.*, u.username, u.user_img FROM posts as p JOIN user as u ON (u.id = p.userId) ORDER BY created_at DESC",
-        (error, data) => {
-            if (error) {
-                console.debug(error);
-                return res.status(500).json({ msg: "Aconteceu algum erro no servidor, tente novamente mais tarde!!!!" });
-            } else if (data) {
-                return res.status(200).json(data);
-            }
-        })
 
+    if (req.query.id) {
+        db.query("SELECT    p.*, u.username, u.user_img FROM posts as p JOIN user as u ON (u.id = p.userId) WHER u.id = ? ORDER BY created_at DESC",
+            [req.query.id],
+            (error, data) => {
+                if (error) {
+                    console.debug(error);
+                    return res.status(500).json({ msg: "Aconteceu algum erro no servidor, tente novamente mais tarde!!!!" });
+                } else if (data) {
+                    return res.status(200).json(data);
+                }
+            })
+    } else {
+        db.query("SELECT    p.*, u.username, u.user_img FROM posts as p JOIN user as u ON (u.id = p.userId) ORDER BY created_at DESC",
+            (error, data) => {
+                if (error) {
+                    console.debug(error);
+                    return res.status(500).json({ msg: "Aconteceu algum erro no servidor, tente novamente mais tarde!!!!" });
+                } else if (data) {
+                    return res.status(200).json(data);
+                }
+            })
+    }
 }
+
+
 
 
