@@ -1,9 +1,7 @@
 "use client";
 import AuthInput from "@/components/AuthInput";
 import { useState } from "react";
-import Link from "next/link";
 import { makeRequest } from "../../../../axios";
-
 
 function Register() {
     const [username, setUserName] = useState('');
@@ -13,8 +11,7 @@ function Register() {
     const [error,setError] = useState('');
     const [success,setSuccess] = useState('');
 
-
-    const handleRegister= (e:any) => {
+    const handleRegister= (e) => {
         e.preventDefault();
         makeRequest.post("auth/register", { username, email, password, confirmPassword }).then((res) => {
             console.log(res.data);
@@ -26,7 +23,6 @@ function Register() {
             setSuccess('');
         });
     };
-
     return (
         <main className="flex min-h-screen flex-col items-center justify-center bg-black">
             <form className="flex flex-col bg-white px-6 py-14 rounded-2xl gap-11 text-gray-600 w-1/4">
@@ -40,12 +36,9 @@ function Register() {
                {success.length>0 && <span className="text-green-600">*{success}</span> }
                 <button className="bg-green-600 py-3 font-bold text-white rounded-lg hover:bg-green-800" onClick={(e) => handleRegister(e)}
                 >Cadastrar-se</button>
-                <Link href="/login" className="text-center underline">Logar</Link>
+                <a href="/login" className="text-center underline">Logar</a>
             </form>
         </main>
     );
 }
-
-
-
 export default Register;

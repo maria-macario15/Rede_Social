@@ -1,4 +1,4 @@
-import db from '../connect.js';
+import { db } from "../connect.js";
 
 export const searchUser = (req,res)=>{
    const params = "%" + req.query.params+ "%";

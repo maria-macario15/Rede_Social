@@ -1,11 +1,11 @@
 import express from "express";
-import{addFrindShip, getFrindShip, deleteFrindShip} from "../controllers/frindShip.js";
+import{addFriendShip, getFriendShip, deleteFriendShip} from "../controllers/friendShip.js";
 import {checkToken} from "../middleware/tokenValidation.js";
 
 const router = express.Router();
 
-router.post("/",checkToken,addFrindShip);
-router.get("/",checkToken,getFrindShip);
-router.delete("/",checkToken,deleteFrindShip);
+router.post("/",checkToken,addFriendShip);
+router.get("/",checkToken,getFriendShip);
+router.delete("/",checkToken,deleteFriendShip);
 
 export default router;

@@ -1,6 +1,6 @@
 import { db } from "../connect.js";
 
-export const addFrindShip = (req, res) => {
+export const addFriendShip = (req, res) => {
     
     const { follower_id, followed_id } = req.body;
 
@@ -14,7 +14,7 @@ export const addFrindShip = (req, res) => {
     })
 };
 
-export const deleteFrindShip = (req, res) => {
+export const deleteFriendShip = (req, res) => {
     const { follower_id, followed_id} = req.query
     db.query("DELETE FROM friendship where 'follower_id ' = ? AND 'followed_id'=?", [follower_id, followed_id], (erro) => {
         if (error) {
@@ -28,7 +28,7 @@ export const deleteFrindShip = (req, res) => {
 
 }
 
-export const getFrindShip = (req, res) => {
+export const getFriendShip = (req, res) => {
     db.query("SELECT    f.*, u.username,user_img FROM friendship as f JOIN user as u ON (u.id = f.followed_id) WHERE follower_id = ?",
         [req.query.follower_id],
 

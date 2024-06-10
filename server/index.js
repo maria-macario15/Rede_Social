@@ -4,7 +4,7 @@ import authRouter from './routes/auth.js';
 import postRouter from './routes/post.js';
 import searchRouter from './routes/search.js';
 import likesRouter from './routes/likes.js';
-import frindShipRouter from './routes/frindShip.js';
+import friendShipRouter from './routes/friendShip.js';
 import commentRouter from './routes/comment.js';
 import uploadRouter from './routes/upload.js';
 import bodyParser from "body-parser";
@@ -38,7 +38,7 @@ app.use('/api/auth/', authRouter);
 app.use('/api/post/',postRouter);
 app.use('/api/search/',searchRouter);
 app.use('/api/likes/',likesRouter);
-app.use('/api/frindShip/',frindShipRouter);
+app.use('/api/friendShip/',friendShipRouter);
 app.use('/api/comment/',commentRouter);
 app.use('/api/upload/',uploadRouter);
 

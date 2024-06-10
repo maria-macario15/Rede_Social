@@ -1,4 +1,4 @@
-import db from '../connect.js';
+import { db } from "../connect.js";
 
 export const getUser = (req,res)=>{
    const id = req.query.id;
@@ -15,7 +15,7 @@ export const getUser = (req,res)=>{
         return res.status(200).json(data)
     }
    })
-}
+};
 
 export const updateUser = (req,res)=>{
     const {username, user_img, bg_img, id} = req.body
@@ -32,4 +32,4 @@ export const updateUser = (req,res)=>{
          return res.status(200).json('atualizado com sucesso')
      }
     })
- }
+ };
