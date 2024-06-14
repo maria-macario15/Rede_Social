@@ -11,45 +11,11 @@ function Login() {
     const [error,setError] = useState('');
     const [success,setSuccess] = useState('');
     
-    async function cadastrarUsuario(event) {
-        //Impede o comportamento de recarregar a página
-        event.preventDefault()
-        //Criando objeto com os dados do usuário a serem enviados para a API
-        const usuarioData = {
-            username,
-            email,
-            password,
-            confirmPassword
-        }
-
-        try {
-            //Realiza POST para a API
-            const resposta = await fetch('/', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json' //Especificando o corpo como JSON
-                },
-                body: JSON.stringify(usuarioData)
-            })
-
-            //Verifica se a resposta da API foi bem-sucedida
-            if (!resposta.ok) {
-                console.debug("Erro ao criar usuário")
-            } else {
-                alert('Usuário Cadastrado')
-                console.debug("Usuário Inserido")
-                window.location.href = '/'
-            }
-
-        } catch (error) {
-            console.debug(error)
-        }
-    }
-
+ 
 
     async function handleLogin() {
         try {
-            const resposta = await fetch("/feed", {
+            const resposta = await fetch("/logar", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -93,9 +59,9 @@ function Login() {
                 <input className='form-control' type="text" placeholder="Nome" value={username} onChange={(e) => setUserName(e.target.value)} />
                 <input className='form-control' type="email" placeholder='E-mail' value={email} onChange={(e) => setEmail(e.target.value)} />
                 <input className='form-control' type="password" placeholder='Senha' value={password} onChange={(e) => setPassword(e.target.value)} />
-                <input className='form-control' type="password" placeholder='Confirme Sua Senha'  />
+                <input className='form-control' type="password" placeholder='Confirme Sua Senha' value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
                 
-                <button type="button" class="btn btn-outline-dark" onClick={(e) => cadastrarUsuario(e)}>Cadastre-se</button>
+                <button type="button" class="btn btn-outline-dark">Cadastre-se</button>
             </form>
         </div>
         <div className="form-container sign-in-container">
