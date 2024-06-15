@@ -1,133 +1,200 @@
-"use client";
-import style from '../auth/login.css'
-import { useContext, useState } from "react";
+// Importação do arquivo de estilo CSS
+import '../auth/login.css';
+// Importação do useState do React
+import { useState } from "react";
 
+// Componente funcional Login
 function Login() {
-
+    // Estados para os campos do formulário e mensagens de erro/sucesso
     const [username, setUserName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
-    const [error,setError] = useState('');
-    const [success,setSuccess] = useState('');
-    
+    const [error, setError] = useState('');
+    const [success, setSuccess] = useState('');
+
+    // Função assíncrona para cadastrar usuário
     async function cadastrarUsuario(event) {
-        //Impede o comportamento de recarregar a página
-        event.preventDefault()
-        //Criando objeto com os dados do usuário a serem enviados para a API
+        event.preventDefault(); // Impede o comportamento padrão de recarregar a página
+
+        // Objeto com os dados do usuário
         const usuarioData = {
             username,
             email,
             password,
             confirmPassword
-        }
+        };
 
         try {
-            //Realiza POST para a API
-            const resposta = await fetch('/', {
+            // Fazendo requisição POST para a API de registro
+            const resposta = await fetch('/auth/register', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json' //Especificando o corpo como JSON
+                    'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(usuarioData)
-            })
+            });
 
-            //Verifica se a resposta da API foi bem-sucedida
+            // Convertendo a resposta para JSON
+            const data = await resposta.json();
+
+            // Verificando se a requisição foi bem-sucedida
             if (!resposta.ok) {
-                console.debug("Erro ao criar usuário")
+                console.debug("Erro ao criar usuário");
+                setError(data.msg || "Erro desconhecido");
+                setSuccess('');
             } else {
-                alert('Usuário Cadastrado')
-                console.debug("Usuário Inserido")
-                window.location.href = '/'
+                alert('Usuário Cadastrado');
+                console.debug("Usuário Inserido");
+                setSuccess(data.msg);
+                setError('');
+                window.location.href = '/';
             }
 
         } catch (error) {
-            console.debug(error)
+            console.debug(error);
+            setError(error.message);
+            setSuccess('');
         }
     }
 
+    // Função assíncrona para realizar login
+    async function handleLogin(event) {
+        event.preventDefault(); // Impede o comportamento padrão de recarregar a página
 
-    async function handleLogin() {
         try {
-            const resposta = await fetch("/feed", {
+            // Fazendo requisição POST para a API de login
+            const resposta = await fetch("/auth/login", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({ email, password })
-            })
+            });
+
+            // Verificando se a requisição foi bem-sucedida
             if (!resposta.ok) {
-                alert("Usuário ou Senha Invalidos!!!")
-                throw new Error("Erro na requisição" + resposta.status)
+                alert("Usuário ou Senha Inválidos!!!");
+                throw new Error("Erro na requisição " + resposta.status);
             } else {
-                const dados = await resposta.json()
-                localStorage.setItem("email", dados.email)
-                //window.location.href = "/telaPrincipal"
+                const dados = await resposta.json();
+                localStorage.setItem("email", dados.email);
+                // window.location.href = "/telaPrincipal";
             }
         } catch (error) {
-            console.error("Erro ao fazer login", error)
+            console.error("Erro ao fazer login", error);
         }
-      
     }
-    async function buttonEntrar(){
-     
+
+    // Função para alternar para o painel de login
+    function buttonEntrar(event) {
+        event.preventDefault(); // Impede o comportamento padrão de recarregar a página
+
         const container = document.getElementById('container');
         container.classList.remove("right-panel-active");
     }
-    async function buttonCadastro(){
-  
-    const container = document.getElementById('container');
-    container.classList.add("right-panel-active");
 
+    // Função para alternar para o painel de cadastro
+    function buttonCadastro(event) {
+        event.preventDefault(); // Impede o comportamento padrão de recarregar a página
+
+        const container = document.getElementById('container');
+        container.classList.add("right-panel-active");
     }
 
-
+    // Retorno do componente Login
     return (
-       <main>
-      
-        <div class="container" id="container">
-        <div class="form-container sign-up-container">
-            <form action="#">
-                <h1>Crie sua conta</h1>
-                <span>Preencha os campos abaixo:</span>
-                <input className='form-control' type="text" placeholder="Nome" value={username} onChange={(e) => setUserName(e.target.value)} />
-                <input className='form-control' type="email" placeholder='E-mail' value={email} onChange={(e) => setEmail(e.target.value)} />
-                <input className='form-control' type="password" placeholder='Senha' value={password} onChange={(e) => setPassword(e.target.value)} />
-                <input className='form-control' type="password" placeholder='Confirme Sua Senha'  />
-                
-                <button type="button" class="btn btn-outline-dark" onClick={(e) => cadastrarUsuario(e)}>Cadastre-se</button>
-            </form>
-        </div>
-        <div className="form-container sign-in-container">
-            <form action="#">
-                <h1 className="font-bold text=2xl ">Olá Taruíra!</h1>
-
-                <span>Preencha os campos abaixo e entre:</span>
-                <input className='form-control' type="email" placeholder='E-mail' value={email} onChange={(e) => setEmail(e.target.value)} />
-                <input className='form-control' type="password" placeholder='Senha' value={password} onChange={(e) => setPassword(e.target.value)} />
-                
-                <a href="#">Esqueceu sua senha?</a>
-                <button type="button" class="btn btn-outline-dark" onClick={(e) => handleLogin(e)}>Entre</button>
-            </form>
-        </div>
-        <div className="overlay-container">
-            <div className="overlay">
-                <div className="overlay-panel overlay-left">
-                    <h1>Ei, taruíra</h1>
-                    <p>Já faz parte da nossa comunidade? </p>
-                    <button className="ghost btn btn-outline-dark" onClick={(e) => buttonEntrar(e)}>Entre</button>
+        <main>
+            <div className="container" id="container">
+                {/* Painel de Cadastro */}
+                <div className="form-container sign-up-container">
+                    <form onSubmit={cadastrarUsuario}>
+                        <h1>Crie sua conta</h1>
+                        <span>Preencha os campos abaixo:</span>
+                        {/* Inputs para nome, email, senha e confirmação de senha */}
+                        <input 
+                            className="form-control" 
+                            type="text" 
+                            placeholder="Nome" 
+                            value={username} 
+                            onChange={(e) => setUserName(e.target.value)} 
+                        />
+                        <input 
+                            className="form-control" 
+                            type="email" 
+                            placeholder="E-mail" 
+                            value={email} 
+                            onChange={(e) => setEmail(e.target.value)} 
+                        />
+                        <input 
+                            className="form-control" 
+                            type="password" 
+                            placeholder="Senha" 
+                            value={password} 
+                            onChange={(e) => setPassword(e.target.value)} 
+                        />
+                        <input 
+                            className="form-control" 
+                            type="password" 
+                            placeholder="Confirme Sua Senha" 
+                            value={confirmPassword} 
+                            onChange={(e) => setConfirmPassword(e.target.value)} 
+                        />
+                        {/* Mensagens de erro e sucesso */}
+                        {error && <span className="text-red-600">*{error}</span>}
+                        {success && <span className="text-green-600">*{success}</span>}
+                        {/* Botão de cadastro */}
+                        <button type="submit" className="btn btn-outline-dark">Cadastre-se</button>
+                    </form>
                 </div>
-                <div className="overlay-panel overlay-right">
-                    <h1>Boas vindas, Taruíra!</h1>
-                    <p>Faça seu cadastro e venha fazer parte da nossa comunidade </p>
-                    <button className="ghost btn btn-outline-dark" onClick={(e) => buttonCadastro(e)}>Cadastre-se</button>
+
+                {/* Painel de Login */}
+                <div className="form-container sign-in-container">
+                    <form onSubmit={handleLogin}>
+                        <h1 className="font-bold text-2xl">Olá Taruíra!</h1>
+                        <span>Preencha os campos abaixo e entre:</span>
+                        {/* Inputs para email e senha */}
+                        <input 
+                            className="form-control" 
+                            type="email" 
+                            placeholder="E-mail" 
+                            value={email} 
+                            onChange={(e) => setEmail(e.target.value)} 
+                        />
+                        <input 
+                            className="form-control" 
+                            type="password" 
+                            placeholder="Senha" 
+                            value={password} 
+                            onChange={(e) => setPassword(e.target.value)} 
+                        />
+                        {/* Link para recuperação de senha */}
+                        <a href="#">Esqueceu sua senha?</a>
+                        {/* Botão de login */}
+                        <button type="submit" className="btn btn-outline-dark">Entre</button>
+                    </form>
+                </div>
+
+                {/* Overlay para alternar entre painéis de login e cadastro */}
+                <div className="overlay-container">
+                    <div className="overlay">
+                        {/* Painel esquerdo do overlay */}
+                        <div className="overlay-panel overlay-left">
+                            <h1>Ei, taruíra</h1>
+                            <p>Já faz parte da nossa comunidade?</p>
+                            <button className="ghost btn btn-outline-dark" onClick={buttonEntrar}>Entre</button>
+                        </div>
+                        {/* Painel direito do overlay */}
+                        <div className="overlay-panel overlay-right">
+                            <h1>Boas vindas, Taruíra!</h1>
+                            <p>Faça seu cadastro e venha fazer parte da nossa comunidade</p>
+                            <button className="ghost btn btn-outline-dark" onClick={buttonCadastro}>Cadastre-se</button>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
-  </main>
-
-
+        </main>
     );
 }
+
 export default Login;
