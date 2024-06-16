@@ -1,47 +1,49 @@
-import { db } from "../connect.js";
+import { db } from "../connect.js"; // Importa a conexão com o banco de dados MySQL
 
+// Função para criar um novo post
 export const creatPost = (req, res) => {
     const { post_desc, img, userId } = req.body;
+
+    // Verifica se o post possui texto ou imagem
     if (!post_desc && !img) {
-        return res.status(422).json({ msg: " O pos precisa ter um texto ou uma imagem ! " });
+        return res.status(422).json({ msg: "O post precisa ter um texto ou uma imagem!" });
     }
 
+    // Insere o post na tabela 'posts'
     db.query('INSERT INTO posts SET ?', { post_desc, img, userId }, (error) => {
         if (error) {
             console.debug(error);
             return res.status(500).json({ msg: "Aconteceu algum erro no servidor, tente novamente mais tarde!!!!" });
         } else {
-            return res.status(200).json({ msg: "`Post enviado com sucesso!" });
+            return res.status(200).json({ msg: "Post enviado com sucesso!" });
         }
-    })
+    });
 };
 
+// Função para obter posts
 export const getPost = (req, res) => {
-
+    // Verifica se foi fornecido um ID de usuário para filtrar os posts
     if (req.query.id) {
-        db.query("SELECT    p.*, u.username, u.user_img FROM posts as p JOIN user as u ON (u.id = p.userId) WHER u.id = ? ORDER BY created_at DESC",
+        db.query("SELECT p.*, u.username, u.user_img FROM posts as p JOIN user as u ON (u.id = p.userId) WHERE u.id = ? ORDER BY created_at DESC",
             [req.query.id],
             (error, data) => {
                 if (error) {
                     console.debug(error);
                     return res.status(500).json({ msg: "Aconteceu algum erro no servidor, tente novamente mais tarde!!!!" });
                 } else if (data) {
-                    return res.status(200).json(data);
+                    return res.status(200).json(data); // Retorna os dados dos posts em formato JSON
                 }
-            })
+            });
     } else {
-        db.query("SELECT    p.*, u.username, u.user_img FROM posts as p JOIN user as u ON (u.id = p.userId) ORDER BY created_at DESC",
+        // Caso não seja fornecido um ID, retorna todos os posts ordenados por data de criação decrescente
+        db.query("SELECT p.*, u.username, u.user_img FROM posts as p JOIN user as u ON (u.id = p.userId) ORDER BY created_at DESC",
             (error, data) => {
                 if (error) {
                     console.debug(error);
                     return res.status(500).json({ msg: "Aconteceu algum erro no servidor, tente novamente mais tarde!!!!" });
                 } else if (data) {
-                    return res.status(200).json(data);
+                    return res.status(200).json(data); // Retorna os dados dos posts em formato JSON
                 }
-            })
+            });
     }
-}
-
-
-
-
+};

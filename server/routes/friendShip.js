@@ -1,11 +1,16 @@
 import express from "express";
-import{addFriendShip, getFriendShip, deleteFriendShip} from "../controllers/friendShip.js";
-import {checkToken} from "../middleware/tokenValidation.js";
+import { addFriendShip, getFriendShip, deleteFriendShip } from "../controllers/friendShip.js"; // Importa funções do controlador de amizade
+import { checkToken } from "../middleware/tokenValidation.js"; // Importa middleware de validação de token
 
-const router = express.Router();
+const router = express.Router(); // Cria uma instância de router do Express
 
-router.post("/",checkToken,addFriendShip);
-router.get("/",checkToken,getFriendShip);
-router.delete("/",checkToken,deleteFriendShip);
+// Rota POST para adicionar uma nova amizade
+router.post("/", checkToken, addFriendShip);
 
-export default router;
+// Rota GET para obter todas as amizades de um usuário
+router.get("/", checkToken, getFriendShip);
+
+// Rota DELETE para remover uma amizade existente
+router.delete("/", checkToken, deleteFriendShip);
+
+export default router; 
