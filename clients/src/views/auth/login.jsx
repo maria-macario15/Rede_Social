@@ -169,7 +169,7 @@ function Login() {
                             onChange={(e) => setPassword(e.target.value)} 
                         />
                         {/* Link para recuperação de senha */}
-                        <a href="#">Esqueceu sua senha?</a>
+                        <a href="\senha">Esqueceu sua senha?</a>
                         {/* Botão de login */}
                         <button type="submit" className="btn btn-outline-dark">Entre</button>
                     </form>

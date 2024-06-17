@@ -1,27 +1,47 @@
-const app = require('express')()
-const server = require('http').createServer(app)
-const io = require('socket.io')(server, {cors: {origin: 'http://localhost:5173'}})
+const express = require('express');
+const mysql = require('mysql2');
+const cors = require('cors');
 
-const PORT = 3001
+const app = express();
+app.use(cors());
+app.use(express.json());
 
-io.on('connection', socket => {
-  console.log('Usuário conectado!', socket.id);
+const db = mysql.createConnection({
+  host: 'localhost',
+  user: 'root',
+  password: 'password',
+  database: 'chat_db'
+});
 
-  socket.on('disconnect', reason => {
-    console.log('Usuário desconectado!', socket.id)
-  })
+db.connect(err => {
+  if (err) {
+    console.error('Error connecting to the database:', err);
+    return;
+  }
+  console.log('Connected to the MySQL database.');
+});
 
-  socket.on('set_username', username => {
-    socket.data.username = username
-  })
+app.get('/messages', (req, res) => {
+  const sql = 'SELECT * FROM messages';
+  db.query(sql, (err, results) => {
+    if (err) {
+      return res.status(500).send(err);
+    }
+    res.send(results);
+  });
+});
 
-  socket.on('message', text => {
-    io.emit('receive_message', {
-      text,
-      authorId: socket.id,
-      author: socket.data.username
-    })
-  })
-})
+app.post('/messages', (req, res) => {
+  const { user, message } = req.body;
+  const sql = 'INSERT INTO messages ( message) VALUES (?, ?)';
+  db.query(sql, [user, message], (err, results) => {
+    if (err) {
+      return res.status(500).send(err);
+    }
+    res.send({ id: results.insertId, message });
+  });
+});
 
-server.listen(PORT, () => console.log('Server running...'))
+app.listen(3001, () => {
+  console.log('Server is running on port 3001');
+});

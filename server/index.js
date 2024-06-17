@@ -48,7 +48,7 @@ app.use('/api/upload/',uploadRouter);
 
 
 app.listen(porta,()=>{
-    console.log(`servidor rodando na posta ${porta} `);
+    console.log(`servidor rodando na porta ${porta} `);
 
 })
 
