@@ -4,7 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import Feed from './views/components/Feed';
 import Navbar from './views/components/Navbar'
 import Login from "./views/auth/login"
-//import chat from './views/chat/chat'
+
 function App() {
   return (
     <BrowserRouter>
