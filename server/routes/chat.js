@@ -1,5 +1,5 @@
-<<<<<<< HEAD
-const express = require('express');
+
+/*const express = require('express');
 const mysql = require('mysql2');
 const cors = require('cors');
 
@@ -46,7 +46,7 @@ app.post('/messages', (req, res) => {
 app.listen(3001, () => {
   console.log('Server is running on port 3001');
 });
-=======
+*/
 const app = require('express')(); // Cria uma instância do Express
 const server = require('http').createServer(app); // Cria um servidor HTTP usando o Express
 const io = require('socket.io')(server, { cors: { origin: 'http://localhost:5173' } }); // Cria uma instância do Socket.IO associada ao servidor HTTP
@@ -80,4 +80,4 @@ io.on('connection', socket => {
 
 // Inicia o servidor WebSocket na porta especificada
 server.listen(PORT, () => console.log('Server running...'));
->>>>>>> 52d1a49dc8f5110cfaf6df17dfd206d4d12b1b6c
+

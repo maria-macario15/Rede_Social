@@ -1,4 +1,5 @@
-
+/*
+import { useState } from "react";
 import Post from "./post"
 
 const IPost = {
@@ -32,4 +33,4 @@ function Feed(props = { post: IPost | undefined }) {
 
     );
 }
-export default Feed;
+export default Feed;*/

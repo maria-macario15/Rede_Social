@@ -134,7 +134,7 @@ function Login() {
                             onChange={(e) => setPassword(e.target.value)} 
                         />
                         <input 
-                            className="form-control" 
+                            className="form-control " 
                             type="password" 
                             placeholder="Confirme Sua Senha" 
                             value={confirmPassword} 
@@ -144,7 +144,8 @@ function Login() {
                         {error && <span className="text-red-600">*{error}</span>}
                         {success && <span className="text-green-600">*{success}</span>}
                         {/* Botão de cadastro */}
-                        <button type="submit" className="btn btn-outline-dark">Cadastre-se</button>
+                     
+                        <button type="submit" className="btn btn-outline-dark ">Cadastre-se</button>
                     </form>
                 </div>
 
