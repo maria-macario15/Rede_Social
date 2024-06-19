@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+/*import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import Feed from './views/components/Feed';
 import Barra from './views/components/Barra'
@@ -23,4 +23,4 @@ function Caminho() {
   );
 }
 
-export default Caminho;
+export default Caminho;*/

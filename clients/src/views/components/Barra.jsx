@@ -33,9 +33,14 @@ function Barra() {
     const [user_img, setUser_img] = useState('');*/
     const token = localStorage.getItem("token");
     const navigate = useNavigate();
-
-
-
+    /*
+    <div className='postar te' >
+                            <input className="container " type="file" onChange={handleFileChange} />
+                            <input className="form-control form-control-sm " type="text" aria-label=".form-control-sm example" />
+    
+                            <button className="btn btn-outline-light" type="submit">Postar</button>
+                            </div>
+    */
 
 
     useEffect(() => {
@@ -104,9 +109,42 @@ function Barra() {
         setFile(e.target.files[0]);
     };
     const userImgSrc = user?.user_img || 'https://img.freepik.com/free-icon/user_318-159711.jpg';
+    const [img, setImg] = useState(''); // Estado para armazenar o src da imagem
+    const [imageName, setImageName] = useState(''); // Estado para armazenar o nome da imagem
 
 
+    const readURL = (event) => {
+        const input = event.target;
+        if (input.files && input.files[0]) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                setImg(e.target.result); // Atualiza o estado com o src da imagem
+                document.querySelector('.image-upload-wrap').classList.add('hide'); // Esconde a área de upload
+                document.querySelector('.file-upload-image').setAttribute('src', e.target.result); // Define o src da imagem
+                document.querySelector('.file-upload-content').classList.remove('hide'); // Mostra a área de conteúdo da imagem
+                document.querySelector('.image-title').innerHTML = input.files[0].name; // Define o nome da imagem
+            };
+            reader.readAsDataURL(input.files[0]);
+        } else {
+            removeUpload();
+        }
+    };
 
+    const removeUpload = () => {
+        const input = document.querySelector('.file-upload-input');
+        input.value = ''; // Limpa o valor do input de arquivo
+        setImg(''); // Limpa o estado da imagem
+        document.querySelector('.file-upload-content').classList.add('hide'); // Esconde a área de conteúdo da imagem
+        document.querySelector('.image-upload-wrap').classList.remove('hide'); // Mostra a área de upload
+    };
+
+    const handleDragOver = () => {
+        document.querySelector('.image-upload-wrap').classList.add('image-dropping'); // Adiciona classe ao arrastar sobre a área de upload
+    };
+
+    const handleDragLeave = () => {
+        document.querySelector('.image-upload-wrap').classList.remove('image-dropping'); // Remove classe ao arrastar sair da área de upload
+    };
 
     const [show, setShow] = useState(false);
 
@@ -124,20 +162,30 @@ function Barra() {
                     </form>
                 </div>
             </nav>
-   <button className='btn btn-outline-dark  ' onClick={handleShow}>
-            <i class="bi bi-plus-circle"  ></i>
+            <button className='btn btn-outline-dark  ' onClick={handleShow}>
+                <i class="bi bi-plus-circle"  ></i>
             </button>
             <Offcanvas className="te" show={show} onHide={handleClose} backdrop="static">
                 <Offcanvas.Header closeButton>
                     <Offcanvas.Title></Offcanvas.Title>
                 </Offcanvas.Header>
                 <Offcanvas.Body>
-                    <div className='postar te' onSubmit={handleSubmit}>
-                        <input className="container " type="file" onChange={handleFileChange} />
-                        <input className="form-control form-control-sm " type="text" aria-label=".form-control-sm example" />
-
-                        <button className="btn btn-outline-light" type="submit">Postar</button>
+                    <div>
+                        <div className="image-upload-wrap" onSubmit={handleSubmit}>
+                            <input className="file-upload-input" type='file' onChange={readURL} accept="image/*" />
+                            <div className="drag-text">
+                                <h3>Drag and drop a file or select add Image</h3>
+                            </div>
                         </div>
+                        <div className={`file-upload-content ${img ? '' : 'hide'}`}>
+                            <img className="file-upload-image" src={img} alt="your image" />
+                            <div className="image-title-wrap">
+                                <button type="button" onClick={removeUpload} className="remove-image">
+                                    Remove <span className="image-title">{imageName}</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                 </Offcanvas.Body>
             </Offcanvas>
 
@@ -148,7 +196,7 @@ function Barra() {
             <div className='col-2 '>
 
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0 ">
-                <li class="nav-item">
+                    <li class="nav-item">
                         <a class="nav-link  " aria-current="page" href="perfil"> {userImgSrc} {setUser.username}</a>
                     </li>
                     <li class="nav-item">
@@ -169,7 +217,7 @@ function Barra() {
             </div>
 
 
-         
+
 
         </main>
     );
