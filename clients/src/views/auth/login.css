@@ -86,7 +86,7 @@ input {
 	width: 100%;
 }
 
-.container {
+.cont {
 	background-color: #fff;
 	border-radius: 10px;
   	box-shadow: 0 14px 28px rgba(0,0,0,0.25), 
@@ -98,31 +98,31 @@ input {
 	min-height: 480px;
 }
 
-.form-container {
+.form-cont {
 	position: absolute;
 	top: 0;
 	height: 100%;
 	transition: all 0.6s ease-in-out;
 }
 
-.sign-in-container {
+.sign-in-cont {
 	left: 0;
 	width: 50%;
 	z-index: 2;
 }
 
-.container.right-panel-active .sign-in-container {
+.cont.right-panel-active .sign-in-cont {
 	transform: translateX(100%);
 }
 
-.sign-up-container {
+.sign-up-cont {
 	left: 0;
 	width: 50%;
 	opacity: 0;
 	z-index: 1;
 }
 
-.container.right-panel-active .sign-up-container {
+.cont.right-panel-active .sign-up-cont {
 	transform: translateX(100%);
 	opacity: 1;
 	z-index: 5;
@@ -141,7 +141,7 @@ input {
 	}
 }
 
-.overlay-container {
+.overlay-cont {
 	position: absolute;
 	top: 0;
 	left: 50%;
@@ -152,7 +152,7 @@ input {
 	z-index: 100;
 }
 
-.container.right-panel-active .overlay-container{
+.cont.right-panel-active .overlay-cont{
 	transform: translateX(-100%);
 }
 
@@ -171,7 +171,7 @@ input {
 	transition: transform 0.6s ease-in-out;
 }
 
-.container.right-panel-active .overlay {
+.cont.right-panel-active .overlay {
   	transform: translateX(50%);
 }
 
@@ -194,7 +194,7 @@ input {
 	transform: translateX(-20%);
 }
 
-.container.right-panel-active .overlay-left {
+.cont.right-panel-active .overlay-left {
 	transform: translateX(0);
 }
 
@@ -203,15 +203,15 @@ input {
 	transform: translateX(0);
 }
 
-.container.right-panel-active .overlay-right {
+.cont.right-panel-active .overlay-right {
 	transform: translateX(20%);
 }
 
-.social-container {
+.social-cont {
 	margin: 20px 0;
 }
 
-.social-container a {
+.social-cont a {
 	border: 1px solid #DDDDDD;
 	border-radius: 50%;
 	display: inline-flex;

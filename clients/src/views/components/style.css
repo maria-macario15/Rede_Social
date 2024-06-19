@@ -1,13 +1,69 @@
-.te{
+.te {
     background: #9065AD;
 }
 
-.post{
+.post {
     mix-blend-mode: difference;
     color: #9065AD;
 }
-.user{
-    width: 10%;
-    height: 12%;
+
+.user {
+    width: 5%;
+    height: 5%;
     border-radius: 50%;
 }
+
+.postar {
+    width: 70%;
+    height: 10%;
+    border-radius: 10px;
+    flex-grow: 20%;
+}
+
+.mn {
+
+    width: 19%;
+    height: 20%;
+}
+
+.share-btn {
+    position: absolute;
+    display: flex;
+    cursor: pointer;
+    align-items: center;
+    background: #9065AD;
+    border: 1px solid rgba(128, 128, 128, 0.705);
+    border-radius: 50%;
+    transition: .2s ease-in-out;
+    scale: .8;
+    z-index: 10;
+    padding: 10px;
+    width: 30px;
+    height: 30px;
+}
+
+.share-btn:hover {
+    background: #f1f1f1;
+    scale: .9;
+}
+
+.ups{
+    display: flex;
+    flex-direction: row;
+    gap: 0.5em;
+}
+
+.discord{
+
+    margin-top: -.09em;
+    margin-left: -1.2em;
+    fill: #8c9eff;
+}
+
+
+.card1:hover{
+    cursor: pointer;
+    scale: 1.1;
+    background-color: crimson;
+}
+

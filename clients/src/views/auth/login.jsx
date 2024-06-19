@@ -90,24 +90,24 @@ function Login() {
     function buttonEntrar(event) {
         event.preventDefault(); // Impede o comportamento padrão de recarregar a página
 
-        const container = document.getElementById('container');
-        container.classList.remove("right-panel-active");
+        const cont = document.getElementById('container');
+        cont.classList.remove("right-panel-active");
     }
 
     // Função para alternar para o painel de cadastro
     function buttonCadastro(event) {
         event.preventDefault(); // Impede o comportamento padrão de recarregar a página
 
-        const container = document.getElementById('container');
-        container.classList.add("right-panel-active");
+        const cont = document.getElementById('cont');
+        cont.classList.add("right-panel-active");
     }
 
     // Retorno do componente Login
     return (
         <main>
-            <div className="container" id="container">
+            <div className="cont" id="cont">
                 {/* Painel de Cadastro */}
-                <div className="form-container sign-up-container">
+                <div className="form-cont sign-up-cont">
                     <form onSubmit={cadastrarUsuario}>
                         <h1>Crie sua conta</h1>
                         <span>Preencha os campos abaixo:</span>
@@ -150,7 +150,7 @@ function Login() {
                 </div>
 
                 {/* Painel de Login */}
-                <div className="form-container sign-in-container">
+                <div className="form-cont sign-in-cont">
                     <form onSubmit={handleLogin}>
                         <h1 className="font-bold text-2xl">Olá Taruíra!</h1>
                         <span>Preencha os campos abaixo e entre:</span>
@@ -177,7 +177,7 @@ function Login() {
                 </div>
 
                 {/* Overlay para alternar entre painéis de login e cadastro */}
-                <div className="overlay-container">
+                <div className="overlay-cont">
                     <div className="overlay">
                         {/* Painel esquerdo do overlay */}
                         <div className="overlay-panel overlay-left">
