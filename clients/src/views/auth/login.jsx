@@ -12,7 +12,7 @@ function Login() {
     const [confirmPassword, setConfirmPassword] = useState('');
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
-
+    const [nome_mae, setNome_mae] = useState('');
     // Função assíncrona para cadastrar usuário
     async function cadastrarUsuario(event) {
         event.preventDefault(); // Impede o comportamento padrão de recarregar a página
@@ -22,7 +22,8 @@ function Login() {
             username,
             email,
             password,
-            confirmPassword
+            confirmPassword,
+            nome_mae
         };
 
         try {
@@ -138,7 +139,15 @@ function Login() {
                             type="password" 
                             placeholder="Confirme Sua Senha" 
                             value={confirmPassword} 
-                            onChange={(e) => setConfirmPassword(e.target.value)} 
+                            onChange={(e) => setConfirmPassword(e.target.value)}  
+                        />
+                         <input 
+                            className="form-control " 
+                            type="text" 
+                            placeholder="Nome da mãe" 
+                            value={nome_mae} 
+                            onChange={(e) => setNome_mae(e.target.value)} 
+                            
                         />
                         {/* Mensagens de erro e sucesso */}
                         {error && <span className="text-red-600">*{error}</span>}
@@ -195,6 +204,7 @@ function Login() {
                 </div>
             </div>
         </main>
+       
     );
 }
 

@@ -1,16 +1,16 @@
 import '../components/style.css'
 import logo from '../../imgs/logo.png'
 import "bootstrap-icons/font/bootstrap-icons.css";
-
+import 'bootstrap/js/dist/util';
+import 'bootstrap/js/dist/dropdown';
+import Offcanvas from 'react-bootstrap/Offcanvas';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-/*
-<div className='container postar col-3 te' onSubmit={handleSubmit}>
-<input className="container te mn" type="file" onChange={handleFileChange} />
-<input className="form-control form-control-sm " type="text" aria-label=".form-control-sm example" />
 
-<button className="btn btn-outline-light" type="submit">Postar</button>
-*/
+
+
+
+
 
 function Barra() {
     const [user, setUser] = useState({
@@ -103,19 +103,15 @@ function Barra() {
     const handleFileChange = (e) => {
         setFile(e.target.files[0]);
     };
-    const userImgSrc = user?.user_img || "https://img.freepik.com/free-icon/user_318-159711.jpg";
+    const userImgSrc = user?.user_img || 'https://img.freepik.com/free-icon/user_318-159711.jpg';
 
 
-    function postare(event){
 
-        return(
-        
-    <div className='card1:hover'>
-    <button className="discord" type="submit">Postar</button> 
-       </div>
-        )
-    }
 
+    const [show, setShow] = useState(false);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
 
 
     return (
@@ -128,32 +124,56 @@ function Barra() {
                     </form>
                 </div>
             </nav>
+   <button className='btn btn-outline-dark  ' onClick={handleShow}>
+            <i class="bi bi-plus-circle"  ></i>
+            </button>
+            <Offcanvas className="te" show={show} onHide={handleClose} backdrop="static">
+                <Offcanvas.Header closeButton>
+                    <Offcanvas.Title></Offcanvas.Title>
+                </Offcanvas.Header>
+                <Offcanvas.Body>
+                    <div className='postar te' onSubmit={handleSubmit}>
+                        <input className="container " type="file" onChange={handleFileChange} />
+                        <input className="form-control form-control-sm " type="text" aria-label=".form-control-sm example" />
 
-            <div className='ups'>
-                <button className='share-btn share-btn:hover ' onClick={postare}>+</button>
-                
-                </div>
-                <div className='col-2 '>
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 ">
-                        <li class="nav-item">
-                            <a class="nav-link active bi bi-person" aria-current="page" href="amigos"> Amigos</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="/feed" className="nav-link active bi bi-cursor" aria-current="page" onClick={handleNavigateToFeed}> Feed</a>
-                        </li>
+                        <button className="btn btn-outline-light" type="submit">Postar</button>
+                        </div>
+                </Offcanvas.Body>
+            </Offcanvas>
 
-                        <li class="nav-item">
-                            <a class="nav-link active bi bi-chat-left-dots" aria-current="page" href="conversa"> Conversas</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active bi bi-people" aria-current="page" href="grupos"> Grupos</a>
-                        </li>
 
-                    </ul>
-                </div>
+
+
+
+            <div className='col-2 '>
+
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 ">
+                <li class="nav-item">
+                        <a class="nav-link  " aria-current="page" href="perfil"> {userImgSrc} {setUser.username}</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active bi bi-person" aria-current="page" href="amigos"> Amigos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/feed" className="nav-link active bi bi-cursor" aria-current="page" onClick={handleNavigateToFeed}> Feed</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link active bi bi-chat-left-dots" aria-current="page" href="conversa"> Conversas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active bi bi-people" aria-current="page" href="grupos"> Grupos</a>
+                    </li>
+
+                </ul>
+            </div>
+
+
+         
 
         </main>
     );
 }
-  
+
+
 export default Barra;

@@ -1,26 +1,22 @@
-import './App.css';
-import {BrowserRouter, Routes, Route} from 'react-router-dom'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import 'bootstrap/dist/css/bootstrap.min.css'
-import Feed from './views/components/Feed';
-import Barra from './views/components/Barra'
 import Login from "./views/auth/login"
-import chat from './views/chat/components/App'
 import { useEffect } from 'react';
-import logo from '../src/imgs/logo.png'
-import inicial from './views/components/inicial'
+import Caminho from "./caminho"
+
 function App() {
   useEffect(() => {
     document.title = "Taruira Chapoca"
-   
-}, [])
 
-  return ( 
+  }, [])
+
+  return (
     <BrowserRouter>
-    <Barra/>
       <Routes>
-        <Route path='/' element={<inicial/>} />
-
+        <Route path='/' element={<Login/>} /> 
+        
       </Routes>
+  
     </BrowserRouter>
   );
 }
