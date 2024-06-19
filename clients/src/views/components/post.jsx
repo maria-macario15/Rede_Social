@@ -1,4 +1,4 @@
-/*/import { useQueryClient, useQuery, useMutation } from "@tanstack/react-query";
+import { useQueryClient, useQuery, useMutation } from "@tanstack/react-query";
 import { useContext, useState } from "react";
 import { UserContext } from "../others/UserContext";
 
@@ -133,4 +133,3 @@ function Feed(props) {
 }
 
 export default Feed;
-/** */

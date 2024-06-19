@@ -109,6 +109,8 @@ function Barra() {
         setFile(e.target.files[0]);
     };
     const userImgSrc = user?.user_img || 'https://img.freepik.com/free-icon/user_318-159711.jpg';
+
+
     const [img, setImg] = useState(''); // Estado para armazenar o src da imagem
     const [imageName, setImageName] = useState(''); // Estado para armazenar o nome da imagem
 
@@ -170,22 +172,26 @@ function Barra() {
                     <Offcanvas.Title></Offcanvas.Title>
                 </Offcanvas.Header>
                 <Offcanvas.Body>
-                    <div>
-                        <div className="image-upload-wrap" onSubmit={handleSubmit}>
-                            <input className="file-upload-input" type='file' onChange={readURL} accept="image/*" />
-                            <div className="drag-text">
-                                <h3>Drag and drop a file or select add Image</h3>
-                            </div>
-                        </div>
-                        <div className={`file-upload-content ${img ? '' : 'hide'}`}>
-                            <img className="file-upload-image" src={img} alt="your image" />
-                            <div className="image-title-wrap">
-                                <button type="button" onClick={removeUpload} className="remove-image">
-                                    Remove <span className="image-title">{imageName}</span>
-                                </button>
-                            </div>
+
+                    <div className="image-upload-wrap" onSubmit={handleSubmit}>
+                        <input className="file-upload-input" type='file' onChange={handleFileChange} accept="image/*" />
+                        <div className="drag-text">
+                            <h3>Drag and drop a file or select add Image</h3>
                         </div>
                     </div>
+                    <div className={`file-upload-content ${img ? '' : 'hide'}`}>
+                        <img className="file-upload-image" src={img} alt="your image" />
+                        <div className="image-title-wrap">
+                            <button type="button" onClick={removeUpload} className="remove-image"></button>
+                        </div>
+
+                        <span className="image-title">{imageName}</span>
+                        <input className="form-control form-control-sm " type="text" aria-label=".form-control-sm example" />
+
+                        <button className="btn btn-outline-light" type="submit">Postar</button>
+
+                    </div>
+
                 </Offcanvas.Body>
             </Offcanvas>
 
@@ -215,11 +221,15 @@ function Barra() {
 
                 </ul>
             </div>
+        
+    
+    <footer class="bg-body-tertiary text-center border border-black"> 
+           <a class="text-body te" href="#">Taruíra Chapoca</a><br />
+    <a class="text-body te">Criado e desenvolvido por Júlio Basso e Maria Macario.</a><br />
+    <a>@2024</a>
 
-
-
-
-        </main>
+   </footer>
+   </main>
     );
 }
 

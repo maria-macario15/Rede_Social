@@ -113,47 +113,47 @@ function Login() {
                         <h1>Crie sua conta</h1>
                         <span>Preencha os campos abaixo:</span>
                         {/* Inputs para nome, email, senha e confirmação de senha */}
-                        <input 
-                            className="form-control" 
-                            type="text" 
-                            placeholder="Nome" 
-                            value={username} 
-                            onChange={(e) => setUserName(e.target.value)} 
+                        <input
+                            className="form-control"
+                            type="text"
+                            placeholder="Nome"
+                            value={username}
+                            onChange={(e) => setUserName(e.target.value)}
                         />
-                        <input 
-                            className="form-control" 
-                            type="email" 
-                            placeholder="E-mail" 
-                            value={email} 
-                            onChange={(e) => setEmail(e.target.value)} 
+                        <input
+                            className="form-control"
+                            type="email"
+                            placeholder="E-mail"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
                         />
-                        <input 
-                            className="form-control" 
-                            type="password" 
-                            placeholder="Senha" 
-                            value={password} 
-                            onChange={(e) => setPassword(e.target.value)} 
+                        <input
+                            className="form-control"
+                            type="password"
+                            placeholder="Senha"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
                         />
-                        <input 
-                            className="form-control " 
-                            type="password" 
-                            placeholder="Confirme Sua Senha" 
-                            value={confirmPassword} 
-                            onChange={(e) => setConfirmPassword(e.target.value)}  
+                        <input
+                            className="form-control "
+                            type="password"
+                            placeholder="Confirme Sua Senha"
+                            value={confirmPassword}
+                            onChange={(e) => setConfirmPassword(e.target.value)}
                         />
-                         <input 
-                            className="form-control " 
-                            type="text" 
-                            placeholder="Nome da mãe" 
-                            value={nome_mae} 
-                            onChange={(e) => setNome_mae(e.target.value)} 
-                            
+                        <input
+                            className="form-control "
+                            type="text"
+                            placeholder="Nome da mãe"
+                            value={nome_mae}
+                            onChange={(e) => setNome_mae(e.target.value)}
+
                         />
                         {/* Mensagens de erro e sucesso */}
                         {error && <span className="text-red-600">*{error}</span>}
                         {success && <span className="text-green-600">*{success}</span>}
                         {/* Botão de cadastro */}
-                     
+
                         <button type="submit" className="btn btn-outline-dark ">Cadastre-se</button>
                     </form>
                 </div>
@@ -164,19 +164,19 @@ function Login() {
                         <h1 className="font-bold text-2xl">Olá Taruíra!</h1>
                         <span>Preencha os campos abaixo e entre:</span>
                         {/* Inputs para email e senha */}
-                        <input 
-                            className="form-control" 
-                            type="email" 
-                            placeholder="E-mail" 
-                            value={email} 
-                            onChange={(e) => setEmail(e.target.value)} 
+                        <input
+                            className="form-control"
+                            type="email"
+                            placeholder="E-mail"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
                         />
-                        <input 
-                            className="form-control" 
-                            type="password" 
-                            placeholder="Senha" 
-                            value={password} 
-                            onChange={(e) => setPassword(e.target.value)} 
+                        <input
+                            className="form-control"
+                            type="password"
+                            placeholder="Senha"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
                         />
                         {/* Link para recuperação de senha */}
                         <a href="\senha">Esqueceu sua senha?</a>
@@ -203,8 +203,12 @@ function Login() {
                     </div>
                 </div>
             </div>
+            <footer class="bg-body-tertiary text-center border border-black">
+                <a class="text-body te">Fique tranquilo, não compartilharemos seus dados com terceiros!!</a><br />
+                <a class="text-body te" href="#">Taruíra Chapoca</a>
+            </footer>
         </main>
-       
+
     );
 }
 
