@@ -3,7 +3,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { useEffect } from 'react';
 import Login from "./views/auth/login";
 import Profile from './views/Profile/index';
-
+import Barra from './views/components/Barra';
+import Perfil from './views/components/Perfil'
 function ProtectedLayout() {
   const navigate = useNavigate();
   
@@ -25,7 +26,7 @@ function App() {
       <Route element={<ProtectedLayout />}>
         <Route path="/" element={<Profile />} />
       </Route>
-      <Route path="/login" element={<Login />} />
+      <Route path="/login" element={<Perfil/>} />
     </Routes>
   );
 }

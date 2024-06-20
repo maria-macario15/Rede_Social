@@ -108,8 +108,9 @@ function Barra() {
     const handleFileChange = (e) => {
         setFile(e.target.files[0]);
     };
-    const userImgSrc = user?.user_img || 'https://img.freepik.com/free-icon/user_318-159711.jpg';
-
+   // const userImgSrc = user?.user_img || 'https://img.freepik.com/free-icon/user_318-159711.jpg';
+    const defaultUserUrl = 'https://img.freepik.com/free-icon/user_318-159711.jpg';
+ 
 
     const [img, setImg] = useState(''); // Estado para armazenar o src da imagem
     const [imageName, setImageName] = useState(''); // Estado para armazenar o nome da imagem
@@ -203,7 +204,8 @@ function Barra() {
 
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0 ">
                     <li class="nav-item">
-                        <a class="nav-link  " aria-current="page" href="perfil"> {userImgSrc} {setUser.username}</a>
+                    <img className='user' src={user.user_img ? user.user_img : defaultUserUrl}/>  {setUser.username}
+     
                     </li>
                     <li class="nav-item">
                         <a class="nav-link active bi bi-person" aria-current="page" href="amigos"> Amigos</a>
@@ -221,15 +223,15 @@ function Barra() {
 
                 </ul>
             </div>
-        
-    
-    <footer class="bg-body-tertiary text-center border border-black"> 
-           <a class="text-body te" href="#">Taruíra Chapoca</a><br />
-    <a class="text-body te">Criado e desenvolvido por Júlio Basso e Maria Macario.</a><br />
-    <a>@2024</a>
 
-   </footer>
-   </main>
+
+            <footer class="bg-body-tertiary text-center border border-black">
+                <a class="text-body te" href="#">Taruíra Chapoca</a><br />
+                <a class="text-body te">Criado e desenvolvido por Júlio Basso e Maria Macario.</a><br />
+                <a>@2024</a>
+
+            </footer>
+        </main>
     );
 }
 
