@@ -1,6 +1,9 @@
 import React from 'react';
 import Barra from '../components/Barra';
 
+
+
+
 const Profile = ({ children }) => (
     <>
         <Barra />

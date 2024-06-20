@@ -98,7 +98,7 @@ function useComments(postId, user) {
   return { comment_desc, setComment_desc, shareComment, commentsError };
 }
 
-function Feed(props) {
+function post(props) {
   const { post } = props;
   const { post_desc, img, username, user_img, created_at, id, userId } = post;
   const { user } = useContext(UserContext);
@@ -132,4 +132,4 @@ function Feed(props) {
   );
 }
 
-export default Feed;
+export default post;

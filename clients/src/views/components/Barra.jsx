@@ -156,16 +156,16 @@ function Barra() {
 
     return (
         <main className='container row'>
-            <nav className="navbar bg-body-tertiary ">
-                <div className="container-fluid">
+            <nav class="navbar bg-body-tertiary ">
+                <div class="container-fluid">
                     <img src={logo} width="10%" />
-                    <form className="d-flex" role="search">
-                        <input className="form-control me-2" type="search" placeholder="Procurar" aria-label="Search" />
+                    <form class="d-flex" role="search">
+                        <input class="form-control me-2" type="search" placeholder="Procurar" aria-label="Search" />
                     </form>
                 </div>
             </nav>
             <button className='btn btn-outline-dark  ' onClick={handleShow}>
-                <i className="bi bi-plus-circle"  ></i>
+                <i class="bi bi-plus-circle"  ></i>
             </button>
             <Offcanvas className="te" show={show} onHide={handleClose} backdrop="static">
                 <Offcanvas.Header closeButton>
@@ -201,31 +201,31 @@ function Barra() {
 
             <div className='col-2 '>
 
-                <ul className="navbar-nav me-auto mb-2 mb-lg-0 ">
-                    <li className="nav-item">
-                        <a className="nav-link  " aria-current="page" href="perfil"> {userImgSrc} {setUser.username}</a>
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 ">
+                    <li class="nav-item">
+                        <a class="nav-link  " aria-current="page" href="perfil"> {userImgSrc} {setUser.username}</a>
                     </li>
-                    <li className="nav-item">
-                        <a className="nav-link active bi bi-person" aria-current="page" href="amigos"> Amigos</a>
+                    <li class="nav-item">
+                        <a class="nav-link active bi bi-person" aria-current="page" href="amigos"> Amigos</a>
                     </li>
-                    <li className="nav-item">
+                    <li class="nav-item">
                         <a href="/feed" className="nav-link active bi bi-cursor" aria-current="page" onClick={handleNavigateToFeed}> Feed</a>
                     </li>
 
-                    <li className="nav-item">
-                        <a className="nav-link active bi bi-chat-left-dots" aria-current="page" href="conversa"> Conversas</a>
+                    <li class="nav-item">
+                        <a class="nav-link active bi bi-chat-left-dots" aria-current="page" href="conversa"> Conversas</a>
                     </li>
-                    <li className="nav-item">
-                        <a className="nav-link active bi bi-people" aria-current="page" href="grupos"> Grupos</a>
+                    <li class="nav-item">
+                        <a class="nav-link active bi bi-people" aria-current="page" href="grupos"> Grupos</a>
                     </li>
 
                 </ul>
             </div>
         
     
-    <footer className="bg-body-tertiary text-center border border-black"> 
-           <a className="text-body te" href="#">Taruíra Chapoca</a><br />
-    <a className="text-body te">Criado e desenvolvido por Júlio Basso e Maria Macario.</a><br />
+    <footer class="bg-body-tertiary text-center border border-black"> 
+           <a class="text-body te" href="#">Taruíra Chapoca</a><br />
+    <a class="text-body te">Criado e desenvolvido por Júlio Basso e Maria Macario.</a><br />
     <a>@2024</a>
 
    </footer>

@@ -9,11 +9,12 @@ function ProtectedLayout() {
   
   useEffect(() => {
     document.title = "Taruira Chapoca";
-    let value = localStorage.getItem("rede-social:token");
-    if (!value) {
-      navigate('/login'); // Redirects to the '/login' route if no token is found
+    const accessToken = localStorage.getItem("accessToken");
+
+    if (!accessToken) {
+        navigate('/login'); // Redireciona para a rota '/login' se não houver accessToken
     }
-  }, [navigate]);
+}, [navigate]);
 
   return <Outlet />;
 }

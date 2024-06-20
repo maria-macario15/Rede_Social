@@ -2,6 +2,8 @@
 import '../auth/login.css';
 // Importação do useState do React
 import { useState } from "react";
+import Cookies from 'js-cookie';
+
 
 // Componente funcional Login
 function Login() {
@@ -79,8 +81,7 @@ function Login() {
                 throw new Error("Erro na requisição " + resposta.status);
             } else {
                 const dados = await resposta.json();
-                localStorage.setItem("email", dados.email);
-                localStorage.setItem("token", dados.token);
+                localStorage.setItem("accessToken", dados.token);
                 window.location.href = "/";
             }
         } catch (error) {
