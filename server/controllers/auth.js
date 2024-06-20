@@ -4,7 +4,7 @@ import bcrypt from "bcrypt"; // Importa o módulo bcrypt para hashing de senhas
 
 // Função para registrar um novo usuário
 export const register = (req, res) => {
-    const { username, email, password, confirmPassword } = req.body;
+    const { username, email, password, confirmPassword, perg } = req.body;
 
     // Validação dos campos obrigatórios
     if (!username) {
@@ -18,6 +18,9 @@ export const register = (req, res) => {
     }
     if (password !== confirmPassword) {
         return res.status(422).json({ msg: "As senhas não são iguais" });
+    }
+    if (!perg) {
+        return res.status(422).json({ msg: "Tem que responder a pergunta Secreta" });
     }
 
     // Verifica se o email já está sendo utilizado
@@ -33,9 +36,10 @@ export const register = (req, res) => {
             } else {
                 // Hash da senha antes de armazenar no banco de dados
                 const passwordHash = await bcrypt.hash(password, 8);
+                const passwordHash2 = await bcrypt.hash(perg, 8);
                 // Insere o usuário no banco de dados
                 db.query(
-                    "INSERT INTO user SET ?", { username, email, password: passwordHash },
+                    "INSERT INTO user SET ?", { username, email, password: passwordHash, perg: passwordHash2 },
                     (error) => {
                         if (error) {
                             console.debug(error);

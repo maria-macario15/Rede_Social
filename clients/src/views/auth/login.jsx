@@ -12,7 +12,7 @@ function Login() {
     const [confirmPassword, setConfirmPassword] = useState('');
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
-    const [nome_mae, setNome_mae] = useState('');
+    const [perg, setPerg] = useState('');
     // Função assíncrona para cadastrar usuário
     async function cadastrarUsuario(event) {
         event.preventDefault(); // Impede o comportamento padrão de recarregar a página
@@ -23,7 +23,7 @@ function Login() {
             email,
             password,
             confirmPassword,
-            nome_mae
+            perg
         };
 
         try {
@@ -49,7 +49,7 @@ function Login() {
                 console.debug("Usuário Inserido");
                 setSuccess(data.msg);
                 setError('');
-                window.location.href = '/';
+                window.location.href = '/login';
             }
 
         } catch (error) {
@@ -80,7 +80,8 @@ function Login() {
             } else {
                 const dados = await resposta.json();
                 localStorage.setItem("email", dados.email);
-                // window.location.href = "/telaPrincipal";
+                localStorage.setItem("token", dados.token);
+                window.location.href = "/";
             }
         } catch (error) {
             console.error("Erro ao fazer login", error);
@@ -90,8 +91,8 @@ function Login() {
     // Função para alternar para o painel de login
     function buttonEntrar(event) {
         event.preventDefault(); // Impede o comportamento padrão de recarregar a página
-
-        const cont = document.getElementById('container');
+    
+        const cont = document.getElementById('cont');
         cont.classList.remove("right-panel-active");
     }
 
@@ -113,47 +114,47 @@ function Login() {
                         <h1>Crie sua conta</h1>
                         <span>Preencha os campos abaixo:</span>
                         {/* Inputs para nome, email, senha e confirmação de senha */}
-                        <input
-                            className="form-control"
-                            type="text"
-                            placeholder="Nome"
-                            value={username}
-                            onChange={(e) => setUserName(e.target.value)}
+                        <input 
+                            className="form-control" 
+                            type="text" 
+                            placeholder="Nome" 
+                            value={username} 
+                            onChange={(e) => setUserName(e.target.value)} 
                         />
-                        <input
-                            className="form-control"
-                            type="email"
-                            placeholder="E-mail"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
+                        <input 
+                            className="form-control" 
+                            type="email" 
+                            placeholder="E-mail" 
+                            value={email} 
+                            onChange={(e) => setEmail(e.target.value)} 
                         />
-                        <input
-                            className="form-control"
-                            type="password"
-                            placeholder="Senha"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
+                        <input 
+                            className="form-control" 
+                            type="password" 
+                            placeholder="Senha" 
+                            value={password} 
+                            onChange={(e) => setPassword(e.target.value)} 
                         />
-                        <input
-                            className="form-control "
-                            type="password"
-                            placeholder="Confirme Sua Senha"
-                            value={confirmPassword}
-                            onChange={(e) => setConfirmPassword(e.target.value)}
+                        <input 
+                            className="form-control " 
+                            type="password" 
+                            placeholder="Confirme Sua Senha" 
+                            value={confirmPassword} 
+                            onChange={(e) => setConfirmPassword(e.target.value)}  
                         />
-                        <input
-                            className="form-control "
-                            type="text"
-                            placeholder="Nome da mãe"
-                            value={nome_mae}
-                            onChange={(e) => setNome_mae(e.target.value)}
-
+                         <input 
+                            className="form-control " 
+                            type="text" 
+                            placeholder="Nome da mãe" 
+                            value={perg} 
+                            onChange={(e) => setPerg(e.target.value)} 
+                            
                         />
                         {/* Mensagens de erro e sucesso */}
                         {error && <span className="text-red-600">*{error}</span>}
                         {success && <span className="text-green-600">*{success}</span>}
                         {/* Botão de cadastro */}
-
+                     
                         <button type="submit" className="btn btn-outline-dark ">Cadastre-se</button>
                     </form>
                 </div>
@@ -164,19 +165,19 @@ function Login() {
                         <h1 className="font-bold text-2xl">Olá Taruíra!</h1>
                         <span>Preencha os campos abaixo e entre:</span>
                         {/* Inputs para email e senha */}
-                        <input
-                            className="form-control"
-                            type="email"
-                            placeholder="E-mail"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
+                        <input 
+                            className="form-control" 
+                            type="email" 
+                            placeholder="E-mail" 
+                            value={email} 
+                            onChange={(e) => setEmail(e.target.value)} 
                         />
-                        <input
-                            className="form-control"
-                            type="password"
-                            placeholder="Senha"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
+                        <input 
+                            className="form-control" 
+                            type="password" 
+                            placeholder="Senha" 
+                            value={password} 
+                            onChange={(e) => setPassword(e.target.value)} 
                         />
                         {/* Link para recuperação de senha */}
                         <a href="\senha">Esqueceu sua senha?</a>
@@ -203,12 +204,8 @@ function Login() {
                     </div>
                 </div>
             </div>
-            <footer class="bg-body-tertiary text-center border border-black">
-                <a class="text-body te">Fique tranquilo, não compartilharemos seus dados com terceiros!!</a><br />
-                <a class="text-body te" href="#">Taruíra Chapoca</a>
-            </footer>
         </main>
-
+       
     );
 }
 
