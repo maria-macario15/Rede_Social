@@ -14,16 +14,20 @@ function Perfil(){
 
 });
  
-        const defaultImgUrl = 'https://andhouse.com.br/public/img/sem-imagem.jpg';
- 
+const defaultImgUrl = 'https://andhouse.com.br/public/img/sem-imagem.jpg';
+const defaultUserUrl = 'https://img.freepik.com/free-icon/user_318-159711.jpg';
 
     
  return(
 <main className="container row">
     <header className="capa " >
-        <img
-        src={Perfil.bg_img ? Perfil.bg_img : defaultImgUrl}/>
+        <img className='first-child' src={Perfil.bg_img ? Perfil.bg_img : defaultImgUrl}/>
+        <img className='last-child'  src={Perfil.user_img ? Perfil.user_img : defaultUserUrl}/>
         </header>
+        <div>
+            
+        </div>
+       
 </main>
  );   
 }
