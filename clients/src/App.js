@@ -26,7 +26,7 @@ function App() {
       <Route element={<ProtectedLayout />}>
         <Route path="/" element={<Profile />} />
       </Route>
-      <Route path="/login" element={<Perfil/>} />
+      <Route path="/login" element={<Login/>} />
     </Routes>
   );
 }

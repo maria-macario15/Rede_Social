@@ -112,43 +112,6 @@ function Barra() {
     const defaultUserUrl = 'https://img.freepik.com/free-icon/user_318-159711.jpg';
 
 
-    const [img, setImg] = useState(''); // Estado para armazenar o src da imagem
-    const [imageName, setImageName] = useState(''); // Estado para armazenar o nome da imagem
-
-
-    const readURL = (event) => {
-        const input = event.target;
-        if (input.files && input.files[0]) {
-            const reader = new FileReader();
-            reader.onload = function (e) {
-                setImg(e.target.result); // Atualiza o estado com o src da imagem
-                document.querySelector('.image-upload-wrap').classList.add('hide'); // Esconde a área de upload
-                document.querySelector('.file-upload-image').setAttribute('src', e.target.result); // Define o src da imagem
-                document.querySelector('.file-upload-content').classList.remove('hide'); // Mostra a área de conteúdo da imagem
-                document.querySelector('.image-title').innerHTML = input.files[0].name; // Define o nome da imagem
-            };
-            reader.readAsDataURL(input.files[0]);
-        } else {
-            removeUpload();
-        }
-    };
-
-    const removeUpload = () => {
-        const input = document.querySelector('.file-upload-input');
-        input.value = ''; // Limpa o valor do input de arquivo
-        setImg(''); // Limpa o estado da imagem
-        document.querySelector('.file-upload-content').classList.add('hide'); // Esconde a área de conteúdo da imagem
-        document.querySelector('.image-upload-wrap').classList.remove('hide'); // Mostra a área de upload
-    };
-
-    const handleDragOver = () => {
-        document.querySelector('.image-upload-wrap').classList.add('image-dropping'); // Adiciona classe ao arrastar sobre a área de upload
-    };
-
-    const handleDragLeave = () => {
-        document.querySelector('.image-upload-wrap').classList.remove('image-dropping'); // Remove classe ao arrastar sair da área de upload
-    };
-
     const [show, setShow] = useState(false);
 
     const handleClose = () => setShow(false);
@@ -175,23 +138,10 @@ function Barra() {
                 <Offcanvas.Body>
 
                     <div className="image-upload-wrap" onSubmit={handleSubmit}>
-                        <input className="file-upload-input" type='file' onChange={handleFileChange} accept="image/*" />
-                        <div className="drag-text">
-                    
+                        <input className="file-upload-input" type='file' onChange={handleFileChange}  />
+            
                         </div>
-                    </div>
-                    <div className={`file-upload-content ${img ? '' : 'hide'}`}>
-                        <img className="file-upload-image" src={img} alt="your image" />
-                        <div className="image-title-wrap">
-                            <button type="button" onClick={removeUpload} className="remove-image"></button>
-                        </div>
-
-                        <span className="image-title">{imageName}</span>
-                        <input className="form-control form-control-sm " type="text" aria-label=".form-control-sm example" />
-
                         <button className="btn btn-outline-light" type="submit">Postar</button>
-
-                    </div>
                 </Offcanvas.Body>
             </Offcanvas>
 
