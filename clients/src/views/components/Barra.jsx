@@ -204,7 +204,7 @@ function Barra() {
                 </ul>
             </div>
             {/*NAVBAR LATERAL*/}
-            {/*RODAPE*/}
+            {/*RODAPE */}
  
             <footer className="bg-body-tertiary text-center border border-black rounded-4 fixarRodape">
                 <strong className=" text-light fw-semi " >Taruíra Chapoca</strong><br />
