@@ -1,16 +1,13 @@
 import { useEffect, useState } from "react";
 import Post from "./post";
-function Perfil(){
- const [Perfil, setPerfil] = useState({
-    id: '',
-    username: '',
-    user_img: '',
-    bg_img: '',
+function Perfil() {
+    const [Perfil, setPerfil] = useState({
+        id: '',
+        username: '',
+        user_img: '',
+        bg_img: '',
 
-});
- 
-const defaultImgUrl = 'https://andhouse.com.br/public/img/sem-imagem.jpg';
-const defaultUserUrl = 'https://img.freepik.com/free-icon/user_318-159711.jpg';
+    });
 
 
 
@@ -42,28 +39,41 @@ const defaultUserUrl = 'https://img.freepik.com/free-icon/user_318-159711.jpg';
         console.error(error);
     }
 
-    
- return(
-<main className="container row">
-    <header className="capa " >
-        <img className='first-child' src={Perfil.bg_img ? Perfil.bg_img : defaultImgUrl}/>
-        <img className='last-child'  src={Perfil.user_img ? Perfil.user_img : defaultUserUrl}/>
-        </header>
-        <div>
-        <div className="flex flex-col items-center gap-5 w-full">
-            {isLoading ? (
-                <span>Carregando...</span>
-            ) : (
-                <div className="w-full flex flex-col gap-5 items-center">
-                    {posts.map((post) => (
-                        <Post key={post.id} post={post} />
-                    ))}
+    const defaultImgUrl = 'https://andhouse.com.br/public/img/sem-imagem.jpg';
+    const defaultUserUrl = 'https://img.freepik.com/free-icon/user_318-159711.jpg';
+
+
+
+
+
+
+    return (
+        <main className="container row">
+            <header className=" " >
+                <a href="#" class="bi bi-pen-fill"></a>
+                <div>      
+                      <img className='first-child capa ' src={Perfil.bg_img ? Perfil.bg_img : defaultImgUrl} />
                 </div>
-            )}
-        </div>
-        </div>
-       
-</main>
- );   
+                <div> 
+                    <img className='last-child ' src={Perfil.user_img ? Perfil.user_img : defaultUserUrl} />
+                    </div>
+
+            </header>
+            <div>
+                <div className="flex flex-col items-center gap-5 w-full">
+                    {isLoading ? (
+                        <span>Carregando...</span>
+                    ) : (
+                        <div className="w-full flex flex-col gap-5 items-center">
+                            {posts.map((post) => (
+                                <Post key={post.id} post={post} />
+                            ))}
+                        </div>
+                    )}
+                </div>
+            </div>
+
+        </main>
+    );
 }
 export default Perfil;

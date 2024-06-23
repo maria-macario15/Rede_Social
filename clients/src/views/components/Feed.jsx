@@ -30,7 +30,7 @@ function Feed() {
         console.error(error);
     }
 
-    return (
+    return ( 
         <div className="flex flex-col items-center gap-5 w-full">
             {isLoading ? (
                 <span>Carregando...</span>

@@ -5,6 +5,7 @@ import { useState } from "react";
 import Cookies from 'js-cookie';
 
 
+
 // Componente funcional Login
 function Login() {
     // Estados para os campos do formulário e mensagens de erro/sucesso
@@ -92,7 +93,7 @@ function Login() {
     // Função para alternar para o painel de login
     function buttonEntrar(event) {
         event.preventDefault(); // Impede o comportamento padrão de recarregar a página
-    
+
         const cont = document.getElementById('cont');
         cont.classList.remove("right-panel-active");
     }
@@ -105,6 +106,7 @@ function Login() {
         cont.classList.add("right-panel-active");
     }
 
+
     // Retorno do componente Login
     return (
         <main>
@@ -115,47 +117,54 @@ function Login() {
                         <h1>Crie sua conta</h1>
                         <span>Preencha os campos abaixo:</span>
                         {/* Inputs para nome, email, senha e confirmação de senha */}
-                        <input 
-                            className="form-control" 
-                            type="text" 
-                            placeholder="Nome" 
-                            value={username} 
-                            onChange={(e) => setUserName(e.target.value)} 
+                        <input
+                            className="form-control"
+                            type="text"
+                            placeholder="Nome"
+                            value={username}
+                            onChange={(e) => setUserName(e.target.value)}
                         />
-                        <input 
-                            className="form-control" 
-                            type="email" 
-                            placeholder="E-mail" 
-                            value={email} 
-                            onChange={(e) => setEmail(e.target.value)} 
+
+                        <input
+                            className="form-control"
+                            type="email"
+                            placeholder="E-mail"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                        /><br />
+                        <select class="form-select" aria-label="Default select example">
+                            <option selected>Selecione a Pergunta de Segurança</option>
+                            <option value="1">Qual o nome da sua mãe?</option>
+                            <option value="2">Qual é o nome do seu primeiro animal de estimação?</option>
+                            <option value="3">Qual é o nome da cidade onde você nasceu?</option>
+                        </select>
+                        <input
+                            className="form-control "
+                            type="text"
+                            placeholder="Resposta de Segurança"
+                            value={perg}
+                            onChange={(e) => setPerg(e.target.value)}
+
+                        /> <br />
+                        <input
+                            className="form-control"
+                            type="password"
+                            placeholder="Senha"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
                         />
-                        <input 
-                            className="form-control" 
-                            type="password" 
-                            placeholder="Senha" 
-                            value={password} 
-                            onChange={(e) => setPassword(e.target.value)} 
-                        />
-                        <input 
-                            className="form-control " 
-                            type="password" 
-                            placeholder="Confirme Sua Senha" 
-                            value={confirmPassword} 
-                            onChange={(e) => setConfirmPassword(e.target.value)}  
-                        />
-                         <input 
-                            className="form-control " 
-                            type="text" 
-                            placeholder="Nome da mãe" 
-                            value={perg} 
-                            onChange={(e) => setPerg(e.target.value)} 
-                            
+                        <input
+                            className="form-control "
+                            type="password"
+                            placeholder="Confirme Sua Senha"
+                            value={confirmPassword}
+                            onChange={(e) => setConfirmPassword(e.target.value)}
                         />
                         {/* Mensagens de erro e sucesso */}
                         {error && <span className="text-red-600">*{error}</span>}
                         {success && <span className="text-green-600">*{success}</span>}
                         {/* Botão de cadastro */}
-                     
+
                         <button type="submit" className="btn btn-outline-dark ">Cadastre-se</button>
                     </form>
                 </div>
@@ -166,22 +175,24 @@ function Login() {
                         <h1 className="font-bold text-2xl">Olá Taruíra!</h1>
                         <span>Preencha os campos abaixo e entre:</span>
                         {/* Inputs para email e senha */}
-                        <input 
-                            className="form-control" 
-                            type="email" 
-                            placeholder="E-mail" 
-                            value={email} 
-                            onChange={(e) => setEmail(e.target.value)} 
+                        <input
+                            className="form-control"
+                            type="email"
+                            placeholder="E-mail"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
                         />
-                        <input 
-                            className="form-control" 
-                            type="password" 
-                            placeholder="Senha" 
-                            value={password} 
-                            onChange={(e) => setPassword(e.target.value)} 
+                        <input
+                            className="form-control"
+                            type="password"
+                            placeholder="Senha"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
                         />
+
                         {/* Link para recuperação de senha */}
-                        <a href="\senha">Esqueceu sua senha?</a>
+                        <a data-bs-toggle="offcanvas" data-bs-target="#staticBackdrop" aria-controls="staticBackdrop" href="#staticBackdrop">
+                            Esqueceu sua senha?</a>
                         {/* Botão de login */}
                         <button type="submit" className="btn btn-outline-dark">Entre</button>
                     </form>
@@ -205,8 +216,34 @@ function Login() {
                     </div>
                 </div>
             </div>
+
+            {/*RECUPERAÇÃO DE SENHA*/}
+            <div class="offcanvas offcanvas-start" data-bs-backdrop="static" tabindex="-1" id="staticBackdrop" aria-labelledby="staticBackdropLabel">
+                <div class="offcanvas-header">
+                    <h5 class="offcanvas-title" id="staticBackdropLabel">Recuperação de Senha</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body">
+                    <div>
+                        <input
+                            className="form-control"
+                            type="text"
+                            placeholder="Nome" />
+                        <input
+                            className="form-control"
+                            type="email"
+                            placeholder="E-mail" />
+                        <input
+                            className="form-control"
+                            type="text"
+                            placeholder="Resposta de Segurança" />
+                    </div>
+                    <button type="submit" className="btn btn-outline-dark">Recupere</button>
+                </div>
+            </div>
         </main>
-       
+
+
     );
 }
 

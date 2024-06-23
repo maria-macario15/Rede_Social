@@ -3,7 +3,7 @@ import logo from '../../imgs/logo.png'
 import "bootstrap-icons/font/bootstrap-icons.css";
 import 'bootstrap/js/dist/util';
 import 'bootstrap/js/dist/dropdown';
-import Offcanvas from 'react-bootstrap/Offcanvas';
+import { Offcanvas } from 'bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
@@ -33,14 +33,6 @@ function Barra() {
     const [user_img, setUser_img] = useState('');*/
     const token = localStorage.getItem("token");
     const navigate = useNavigate();
-    /*
-    <div className='postar te' >
-                            <input className="container " type="file" onChange={handleFileChange} />
-                            <input className="form-control form-control-sm " type="text" aria-label=".form-control-sm example" />
-    
-                            <button className="btn btn-outline-light" type="submit">Postar</button>
-                            </div>
-    */
 
 
     useEffect(() => {
@@ -105,9 +97,6 @@ function Barra() {
         }
     };
 
-    const handleFileChange = (e) => {
-        setFile(e.target.files[0]);
-    };
 
     const defaultUserUrl = 'https://img.freepik.com/free-icon/user_318-159711.jpg';
 
@@ -116,66 +105,114 @@ function Barra() {
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+    {/*FILE UPLOAD*/ }
+    const [selectedImage, setSelectedImage] = useState(null);
+
+    const handleFile = (event) => {
+        const file = event.target.files[0];
+
+        if (file) {
+            const reader = new FileReader();
+
+            reader.onload = (e) => {
+                setSelectedImage(e.target.result);
+            };
+
+            reader.readAsDataURL(file);
+        } else {
+            setSelectedImage(null);
+        }
+    };
 
 
     return (
-        <main className='container row'>
-            <nav class="navbar bg-body-tertiary ">
-                <div class="container-fluid">
-                    <img src={logo} width="10%" />
+        <main className='container-fluid  '>
+            <div class="row justify-content-md-center text-center d-flex justify-content-around">
+                <nav class="navbar navbar-light bg-body-light ">
+
+                    
+                      <button class="btn btn-outline-dark col-1" type="button" data-bs-toggle="offcanvas" data-bs-target="#staticBackdrop" aria-controls="staticBackdrop">
+                        <i class="bi bi-plus"></i>
+                    </button>
+                    <img src={logo} width="10%" className='col-1' /> 
                     <form class="d-flex" role="search">
-                        <input class="form-control me-2" type="search" placeholder="Procurar" aria-label="Search" />
+                        <input class="form-control me-2 col-1" type="search" placeholder="Procurar" aria-label="Search" />
                     </form>
+                 
+                </nav>
+            </div>
+
+            {/*CRIAR POST */}
+
+
+            <div className="offcanvas offcanvas-start" data-bs-backdrop="static" tabindex="-1" id="staticBackdrop" aria-labelledby="staticBackdropLabel" >
+                <div className="offcanvas-header">
+                    <h5 className="offcanvas-title" id="staticBackdropLabel">Crie sua publicação</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                 </div>
-            </nav>
-            <button className='btn btn-outline-dark  ' onClick={handleShow}>
-                <i class="bi bi-plus-circle"  ></i>
-            </button>
-            <Offcanvas className="te" show={show} onHide={handleClose} backdrop="static">
-                <Offcanvas.Header closeButton>
-                    <Offcanvas.Title></Offcanvas.Title>
-                </Offcanvas.Header>
-                <Offcanvas.Body>
-
-                    <div className="image-upload-wrap" onSubmit={handleSubmit}>
-                        <input className="file-upload-input" type='file' onChange={handleFileChange}  />
-            
+                <div className="offcanvas-body">
+                    <div>
+                        <input
+                            type="file"
+                            id="fileInput"
+                            style={{ display: 'none' }}
+                            onChange={handleFile}
+                        />
+                        <button onClick={() => document.getElementById('fileInput').click()}>
+                            Escolha sua foto
+                        </button>
+                        <div className="image-preview">
+                            {selectedImage ? (
+                                <img src={selectedImage} alt="Selected" className="image-preview__img" />
+                            ) : (
+                                <p>Nenhuma imagem selecionada</p>
+                            )}
                         </div>
-                        <button className="btn btn-outline-light" type="submit">Postar</button>
-                </Offcanvas.Body>
-            </Offcanvas>
-
+                    </div>
+                    <br />
+                    <textarea className="form-control" id="exampleFormControlTextarea1" placeholder='Se expresse, taruíra, bote pra pocar!' rows="3"></textarea>
+                    <br />
+                    <button>Postar</button>
+                </div>
+            </div>
+            {/*CRIAR POST*/}
+            {/*NAVBAR LATERAL*/}
             <div className='col-2 '>
+                <ul className="nav flex-column nav-pills me-3 ">
+                    <li className="nav-item">
+                        <a href="" ><img className='user' src={user.user_img ? user.user_img : defaultUserUrl} /> {setUser.username}</a>
+              
 
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0 ">
-                    <li class="nav-item"><a href=""><img className='user' src={user.user_img ? user.user_img : defaultUserUrl}  /></a>
-                          {setUser.username}
-
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link active bi bi-person" aria-current="page" href="amigos"> Amigos</a>
+                    <li className="nav-item  "  >
+                        <a className="nav-link text-light te bi bi-person " aria-current="page" href="amigos"> Amigos</a>
                     </li>
-                    <li class="nav-item">
-                        <a href="/feed" className="nav-link active bi bi-cursor" aria-current="page" onClick={handleNavigateToFeed}> Feed</a>
+                    <li className="nav-item">
+                        <a className="nav-link text-light te bi bi-cursor" aria-current="page" href="/feed" onClick={handleNavigateToFeed}> Feed</a>
                     </li>
 
-                    <li class="nav-item">
-                        <a class="nav-link active bi bi-chat-left-dots" aria-current="page" href="conversa"> Conversas</a>
+                    <li className="nav-item">
+                        <a className="nav-link text-light te  bi bi-chat-left-dots" aria-current="page" href="conversa"> Conversas</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link active bi bi-people" aria-current="page" href="grupos"> Grupos</a>
+                    <li className="nav-item">
+                        <a className="nav-link text-light te  bi bi-people" aria-current="page" href="grupos"> Grupos</a>
+                    </li>
+                    <li className="nav-item">
+                        <a className="nav-link text-light te  bi bi-emoji-smile" aria-current="page"> Feedback</a>
                     </li>
 
                 </ul>
             </div>
-
-
-            <footer class="bg-body-tertiary text-center border border-black">
-                <a class="text-body te" href="#">Taruíra Chapoca</a><br />
-                <a class="text-body te">Criado e desenvolvido por Jeffey Jonnes, Júlio Basso e Maria Macario.</a><br />
-                <a>@2024</a>
+            {/*NAVBAR LATERAL*/}
+            {/*RODAPE*/}
+ 
+            <footer className="bg-body-tertiary text-center border border-black rounded-4 fixarRodape">
+                <strong className=" text-light fw-semi " >Taruíra Chapoca</strong><br />
+                <strong className=" text-light fw-semi">Criado e desenvolvido por Júlio Basso e Maria Macario.</strong><br />
+                <strong className='text-light fw-semi'>@2024</strong>
             </footer>
-        </main>
+            {/*RODAPE*/}
+        </main >
     );
 }
 
