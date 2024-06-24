@@ -135,7 +135,7 @@ function Barra() {
                     <li className="nav-item">
                         <a href="#">
                             <img className='user' src={user.user_img ? user.user_img : defaultUserUrl} alt="User" />
-                            {user.username}
+                           <p className='fw-semibold fs-4 '>{user.username}</p> 
                         </a>
                     </li>
                     <li className="nav-item">
@@ -151,11 +151,9 @@ function Barra() {
                         <a className="nav-link text-light te bi bi-people" aria-current="page" href="grupos"> Grupos</a>
                     </li>
                     <li className="nav-item">
-<<<<<<< HEAD
+
                         <a className="nav-link text-light te  bi bi-emoji-smile" aria-current="page" href='feedback'> Feedback</a>
-=======
-                        <a className="nav-link text-light te bi bi-emoji-smile" aria-current="page"> Feedback</a>
->>>>>>> a56e7813dfe92c810879281d54f2f6fb1a50c38c
+
                     </li>
                 </ul>
             </div>
