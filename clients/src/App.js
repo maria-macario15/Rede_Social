@@ -6,6 +6,8 @@ import Profile from './views/Profile/index';
 import Barra from './views/components/Barra';
 import Perfil from './views/components/Perfil'
 import Feedback from './views/others/Feedback';
+import Feed from './views/components/Feed';
+import Post from './views/components/post';
 function ProtectedLayout() {
   const navigate = useNavigate();
   
@@ -27,7 +29,7 @@ function App() {
       <Route element={<ProtectedLayout />}>
         <Route path="/" element={<Profile />} />
       </Route>
-      <Route path="/login" element={<Perfil/>} />
+      <Route path="/login" element={<Post/>} />
     </Routes>
   );
 }

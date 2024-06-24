@@ -1,23 +1,13 @@
-"use client";
+// src/context/UserContext.js ou src/context/UserContext.jsx
+import React, { createContext, useState } from 'react';
 
-import { createContext, useState } from "react";
+export const UserContext = createContext();
 
-const initialValue = {
-    user: undefined,
-    setUser: () => {},
-};
-
-export const UserContext = createContext(initialValue);
-
-export const UserContextProvider = ({ children }) => {
-    let UserJSON = localStorage.getItem('rede-social:user');
-    const [user, setUser] = useState(UserJSON ? JSON.parse(UserJSON) : initialValue.user);
+export const UserProvider = ({ children }) => {
+    const [user, setUser] = useState(null);
 
     return (
-        <UserContext.Provider value={{
-            user,
-            setUser
-        }}>
+        <UserContext.Provider value={{ user, setUser }}>
             {children}
         </UserContext.Provider>
     );

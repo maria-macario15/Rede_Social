@@ -6,10 +6,29 @@ function Perfil() {
         username: '',
         user_img: '',
         bg_img: '',
+        bio: ''
 
     });
 
+    {/*FILE UPLOAD*/ }
+    const [selectedImage, setSelectedImage] = useState(null);
 
+    const handleFile = (event) => {
+        const file = event.target.files[0];
+
+        if (file) {
+            const reader = new FileReader();
+
+            reader.onload = (e) => {
+                setSelectedImage(e.target.result);
+            };
+
+            reader.readAsDataURL(file);
+        } else {
+            setSelectedImage(null);
+        }
+    };
+    {/*FILE UPLOAD*/ }
 
     const [posts, setPosts] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
@@ -49,16 +68,33 @@ function Perfil() {
 
     return (
         <main className="container row">
-            <header className=" " >
-                <a href="#" class="bi bi-pen-fill"></a>
-                <div>      
-                      <img className='first-child capa ' src={Perfil.bg_img ? Perfil.bg_img : defaultImgUrl} />
-                </div>
-                <div> 
-                    <img className='last-child ' src={Perfil.user_img ? Perfil.user_img : defaultUserUrl} />
+            <div class="perfil-container">
+                <header className=" " >
+                    <a data-bs-toggle="offcanvas" data-bs-target="#edicao" aria-controls="edicao" href="#edicao" class="bi bi-pen-fill editar "></a>
+                    <div>
+                        <img className='first-child capa ' src={Perfil.bg_img ? Perfil.bg_img : defaultImgUrl} />
+                    </div>
+                    <div>
+                        <img className='last-child foto-perfil' src={Perfil.user_img ? Perfil.user_img : defaultUserUrl} />
                     </div>
 
-            </header>
+                </header>
+
+
+
+                <div class="nome-usuario">{Perfil.username}</div>
+                <div class="bio">{Perfil.bio}</div>
+                
+                <div class="bo_perfil">
+                    <strong className="text-light fw-semi">Perfil</strong>
+
+
+                </div>
+                <br />
+                <br />
+                
+                <div><h1>testetetste</h1></div>
+            </div>
             <div>
                 <div className="flex flex-col items-center gap-5 w-full">
                     {isLoading ? (
@@ -73,6 +109,67 @@ function Perfil() {
                 </div>
             </div>
 
+
+            <div className="offcanvas offcanvas-start" data-bs-backdrop="edicao" tabindex="-1" id="edicao" aria-labelledby="edicao" >
+                <div className="offcanvas-header">
+                    <h5 className="offcanvas-title" id="edicao">Edite seu perfil</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <div className="offcanvas-body">
+                    {/*Capa*/}
+                    <div>
+                        <input
+                            type="file"
+                            id="fileInput"
+                            style={{ display: 'none' }}
+                            onChange={handleFile}
+                        />
+
+                        <div className="img" >
+                            {selectedImage ? (
+                                <img src={selectedImage} alt="Selected" className="img-pre" />
+                            ) : (
+                                <p>Nenhuma imagem selecionada</p>
+                            )}
+                        </div> <br />
+                        <button onClick={() => document.getElementById('fileInput').click()}>
+                            Escolha sua Capa
+                        </button>
+                    </div>
+                    {/*Capa*/}
+                    <br />
+                    <div className="linha"></div>
+                    <br />
+                    {/*Perfil*/}
+                    <div>
+                        <input
+                            type="file"
+                            id="fileInput"
+                            style={{ display: 'none' }}
+                            onChange={handleFile}
+                        />
+
+                        <div className="imge" >
+                            {selectedImage ? (
+                                <img src={selectedImage} alt="Selected" className="img-p" />
+                            ) : (
+                                <p>Nenhuma imagem selecionada</p>
+                            )}
+                        </div><br />
+                        <button onClick={() => document.getElementById('fileInput').click()}>
+                            Escolha seu Perfil
+                        </button>
+                    </div>
+                    <br />
+                    <div className="linha"></div>
+                    <br />
+                    <br />
+                    <h3 className="bio">Biografia</h3>
+                    <textarea className="form-control" id="exampleFormControlTextarea1" placeholder='Eai Taruíra, fale de você!!' rows="3"></textarea>
+                    <br />
+                    <button>Postar</button>
+                </div>
+            </div>
         </main>
     );
 }

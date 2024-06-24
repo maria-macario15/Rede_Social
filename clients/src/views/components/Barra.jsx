@@ -198,7 +198,7 @@ function Barra() {
                         <a className="nav-link text-light te  bi bi-people" aria-current="page" href="grupos"> Grupos</a>
                     </li>
                     <li className="nav-item">
-                        <a className="nav-link text-light te  bi bi-emoji-smile" aria-current="page"> Feedback</a>
+                        <a className="nav-link text-light te  bi bi-emoji-smile" aria-current="page" href='feedback'> Feedback</a>
                     </li>
 
                 </ul>
