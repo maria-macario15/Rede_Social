@@ -8,10 +8,6 @@ import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
 
-
-
-
-
 function Barra() {
     const [user, setUser] = useState({
         id: '',
@@ -21,6 +17,15 @@ function Barra() {
         bg_img: ''
     });
 
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        const value = localStorage.getItem("accessUser");
+        if (value) {
+            setUser(JSON.parse(value));
+        }
+    }, []);
+
     const handleNavigateToFeed = (event) => {
         event.preventDefault(); // Evita que o link recarregue a página
         navigate('/feed');
@@ -29,53 +34,14 @@ function Barra() {
     const [searchTerm, setSearchTerm] = useState('');
     const [file, setFile] = useState(null);
 
-    /*const [username, setUsername] = useState('');
-    const [user_img, setUser_img] = useState('');*/
-    const token = localStorage.getItem("token");
-    const navigate = useNavigate();
-
-
-    useEffect(() => {
-        if (token) {
-            carregarUsuarios(token);
-        }
-    }, [token]);
-
-    async function carregarUsuarios(token) {
-        try {
-            const resposta = await fetch('/auth/login', {
-                headers: {
-                    'x-access-token': token
-                }
-            });
-
-            if (resposta.status === 401) {
-                localStorage.removeItem('token');
-                alert("Usuário não autenticado");
-                navigate("/");
-            } else if (!resposta.ok) {
-                throw new Error("Erro requisição: " + resposta.status);
-            } else {
-                const dados = await resposta.json();
-                setUser({
-                    id: dados.id,
-                    email: dados.email,
-                    username: dados.username,
-                    user_img: dados.user_img,
-                    bg_img: dados.bg_img
-                });
-            }
-        } catch (error) {
-            console.error("Erro ao buscar os usuários", error);
-        }
-    }
-
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         try {
             const formData = new FormData();
             formData.append('file', file);
+
+            const token = localStorage.getItem("accessToken");
 
             const resposta = await fetch('/api/upload', {
                 method: 'POST',
@@ -97,15 +63,8 @@ function Barra() {
         }
     };
 
-
     const defaultUserUrl = 'https://img.freepik.com/free-icon/user_318-159711.jpg';
 
-
-    const [show, setShow] = useState(false);
-
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
-    {/*FILE UPLOAD*/ }
     const [selectedImage, setSelectedImage] = useState(null);
 
     const handleFile = (event) => {
@@ -124,31 +83,25 @@ function Barra() {
         }
     };
 
-
     return (
-        <main className='container-fluid  '>
-            <div class="row justify-content-md-center text-center d-flex justify-content-around">
-                <nav class="navbar navbar-light bg-body-light ">
-
-                    
-                      <button class="btn btn-outline-dark col-1" type="button" data-bs-toggle="offcanvas" data-bs-target="#staticBackdrop" aria-controls="staticBackdrop">
-                        <i class="bi bi-plus"></i>
+        <main className='container-fluid'>
+            <div className="row justify-content-md-center text-center d-flex justify-content-around">
+                <nav className="navbar navbar-light bg-body-light">
+                    <button className="btn btn-outline-dark col-1" type="button" data-bs-toggle="offcanvas" data-bs-target="#staticBackdrop" aria-controls="staticBackdrop">
+                        <i className="bi bi-plus"></i>
                     </button>
-                    <img src={logo} width="10%" className='col-1' /> 
-                    <form class="d-flex" role="search">
-                        <input class="form-control me-2 col-1" type="search" placeholder="Procurar" aria-label="Search" />
+                    <img src={logo} width="10%" className='col-1' alt="Logo" />
+                    <form className="d-flex" role="search">
+                        <input className="form-control me-2 col-1" type="search" placeholder="Procurar" aria-label="Search" />
                     </form>
-                 
                 </nav>
             </div>
 
             {/*CRIAR POST */}
-
-
-            <div className="offcanvas offcanvas-start" data-bs-backdrop="static" tabindex="-1" id="staticBackdrop" aria-labelledby="staticBackdropLabel" >
+            <div className="offcanvas offcanvas-start" data-bs-backdrop="static" tabIndex="-1" id="staticBackdrop" aria-labelledby="staticBackdropLabel">
                 <div className="offcanvas-header">
                     <h5 className="offcanvas-title" id="staticBackdropLabel">Crie sua publicação</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                    <button type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                 </div>
                 <div className="offcanvas-body">
                     <div>
@@ -175,46 +128,46 @@ function Barra() {
                     <button>Postar</button>
                 </div>
             </div>
-            {/*CRIAR POST*/}
-            {/*NAVBAR LATERAL*/}
-            <div className='col-2 '>
-                <ul className="nav flex-column nav-pills me-3 ">
-                    <li className="nav-item">
-                        <a href="" ><img className='user' src={user.user_img ? user.user_img : defaultUserUrl} /> {setUser.username}</a>
-              
 
+            {/*NAVBAR LATERAL*/}
+            <div className='col-2'>
+                <ul className="nav flex-column nav-pills me-3">
+                    <li className="nav-item">
+                        <a href="#">
+                            <img className='user' src={user.user_img ? user.user_img : defaultUserUrl} alt="User" />
+                            {user.username}
+                        </a>
                     </li>
-                    <li className="nav-item  "  >
-                        <a className="nav-link text-light te bi bi-person " aria-current="page" href="amigos"> Amigos</a>
+                    <li className="nav-item">
+                        <a className="nav-link text-light te bi bi-person" aria-current="page" href="amigos"> Amigos</a>
                     </li>
                     <li className="nav-item">
                         <a className="nav-link text-light te bi bi-cursor" aria-current="page" href="/feed" onClick={handleNavigateToFeed}> Feed</a>
                     </li>
-
                     <li className="nav-item">
-                        <a className="nav-link text-light te  bi bi-chat-left-dots" aria-current="page" href="conversa"> Conversas</a>
+                        <a className="nav-link text-light te bi bi-chat-left-dots" aria-current="page" href="conversa"> Conversas</a>
                     </li>
                     <li className="nav-item">
-                        <a className="nav-link text-light te  bi bi-people" aria-current="page" href="grupos"> Grupos</a>
+                        <a className="nav-link text-light te bi bi-people" aria-current="page" href="grupos"> Grupos</a>
                     </li>
                     <li className="nav-item">
+<<<<<<< HEAD
                         <a className="nav-link text-light te  bi bi-emoji-smile" aria-current="page" href='feedback'> Feedback</a>
+=======
+                        <a className="nav-link text-light te bi bi-emoji-smile" aria-current="page"> Feedback</a>
+>>>>>>> a56e7813dfe92c810879281d54f2f6fb1a50c38c
                     </li>
-
                 </ul>
             </div>
-            {/*NAVBAR LATERAL*/}
-            {/*RODAPE */}
- 
+
+            {/*RODAPE*/}
             <footer className="bg-body-tertiary text-center border border-black rounded-4 fixarRodape">
-                <strong className=" text-light fw-semi " >Taruíra Chapoca</strong><br />
-                <strong className=" text-light fw-semi">Criado e desenvolvido por Júlio Basso e Maria Macario.</strong><br />
+                <strong className="text-light fw-semi">Taruíra Chapoca</strong><br />
+                <strong className="text-light fw-semi">Criado e desenvolvido por Júlio Basso e Maria Macario.</strong><br />
                 <strong className='text-light fw-semi'>@2024</strong>
             </footer>
-            {/*RODAPE*/}
-        </main >
+        </main>
     );
 }
-
 
 export default Barra;

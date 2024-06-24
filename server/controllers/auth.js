@@ -1,29 +1,24 @@
-import jwt from "jsonwebtoken"; // Importa o módulo jwt para lidar com tokens JWT
-import { db } from "../connect.js"; // Importa a conexão com o banco de dados MySQL
-import bcrypt from "bcrypt"; // Importa o módulo bcrypt para hashing de senhas
+import jwt from "jsonwebtoken";
+import { db } from "../connect.js";
+import bcrypt from "bcrypt";
 
-// Função para registrar um novo usuário
 export const register = (req, res) => {
     const { username, email, password, confirmPassword, perg } = req.body;
-
-    // Validação dos campos obrigatórios
     if (!username) {
-        return res.status(422).json({ msg: "O nome é obrigatório" });
+        return res.status(422.).json({ msg: "O nome é obrigatorio" });
     }
     if (!email) {
-        return res.status(422).json({ msg: "O email é obrigatório" });
+        return res.status(422.).json({ msg: "O email é obrigatorio" });
     }
     if (!password) {
-        return res.status(422).json({ msg: "A senha é obrigatória" });
+        return res.status(422.).json({ msg: "a senha é obrigatoria" });
     }
     if (password !== confirmPassword) {
-        return res.status(422).json({ msg: "As senhas não são iguais" });
+        return res.status(422.).json({ msg: "As senhas não são iguais" });
     }
     if (!perg) {
         return res.status(422).json({ msg: "Tem que responder a pergunta Secreta" });
     }
-
-    // Verifica se o email já está sendo utilizado
     db.query("SELECT email FROM user WHERE email = ?",
         [email],
         async (error, data) => {
@@ -32,18 +27,16 @@ export const register = (req, res) => {
                 return res.status(500).json({ msg: "Aconteceu algum erro no servidor, tente novamente mais tarde" });
             }
             if (data.length > 0) {
-                return res.status(500).json({ msg: "Este email já está sendo utilizado" });
+                return res.status(500).json({ msg: "Este email já esta sendo utilizado" });
             } else {
-                // Hash da senha antes de armazenar no banco de dados
                 const passwordHash = await bcrypt.hash(password, 8);
                 const passwordHash2 = await bcrypt.hash(perg, 8);
-                // Insere o usuário no banco de dados
                 db.query(
                     "INSERT INTO user SET ?", { username, email, password: passwordHash, perg: passwordHash2 },
                     (error) => {
                         if (error) {
                             console.debug(error);
-                            return res.status(500).json({ msg: "Aconteceu algum erro no servidor, tente novamente mais tarde!" });
+                            return res.status(500).json({ msg: "Aconteceu algum erro no Servidor, tente novamente mais tarde!" });
                         } else {
                             return res.status(200).json({ msg: "Cadastro efetuado com sucesso!!" });
                         }
@@ -53,70 +46,105 @@ export const register = (req, res) => {
         })
 };
 
-// Função para fazer login de usuário
 export const login = (req, res) => {
     const { email, password } = req.body;
 
-    db.query("SELECT * FROM user WHERE email = ?", [email], async (error, data) => {
-        if (error) {
-            return res.status(500).json({ msg: "Aconteceu algum erro no servidor, tente novamente mais tarde!!" });
-        }
-        if (data.length === 0) {
-            return res.status(404).json({ msg: "Usuário ou senha incorreta!" });
-        } else {
-            const user = data[0];
-            const checkPassword = await bcrypt.compare(password, user.password);
+    db.query(
+        "SELECT*FROM user WHERE email =?", [email],
+        async (error, data) => {
 
-            if (!checkPassword) {
-                return res.status(422).json({ msg: "Usuário ou senha incorreta!!" });
+            if (error) {
+                console.debug(error);
+                return res.status(500).json({ msg: "Aconteceu algum erro no servidor, tente novamente mais tarde!!" });
+
             }
+            if (data.length === 0) {
+                return res.status(404).json({ msg: "Usuario ou senha incorreta!" })
+            } else {
+                const user = data[0];
 
-            try {
-                const token = jwt.sign(
-                    { exp: Math.floor(Date.now() / 1000) + 3600, id: user.id },
-                    process.env.TOKEN,
-                    { algorithm: "HS256" }
-                );
+                const checkPassword = await bcrypt.compare(password, user.password)
 
-                res.status(200).json({ msg: "Usuário logado com sucesso!", token });
-            } catch (err) {
-                return res.status(500).json({ msg: "Aconteceu algum erro no servidor, tente novamente mais tarde!!!" });
+                if (!checkPassword) {
+                    return res.status(422).json({ msg: "Usuario ou senha incorreta!!" })
+                }
+                try {
+
+                    const refreshToken = jwt.sign({
+                        exp: Math.floor(Date.now() / 1000) + 24 * 60 * 60,
+                        id: user.password
+                    },
+                        //node -e "console.log(require('crypto').randomBytes(256).toString('base64'));" 
+                        //COMANDO PARA CRIAR A CHAVE DE CRIPTO GRAFIA 
+                        process.env.REFRESH,
+                        { algorithm: "HS256" }
+                    )
+                    const token = jwt.sign({
+                        exp: Math.floor(Date.now() / 1000) + 3600,
+                        id: user.password
+                    },
+                        process.env.TOKEN,
+                        { algorithm: "HS256" }
+                    );
+                    console.debug(token)
+                    
+                  res.status(200).json({msg:"Usuario logado com sucesso!", 
+                    data:{user, token:{token,refreshToken}}
+                })
+                } catch (err) {
+                    console.debug(err);
+                    return res.status(500).json({ msg: "Aconteceu algum erro no servidor, tente novamente mais tarde!!!" })
+                }
             }
         }
-    });
+
+    )
+
 };
 
-
-// Função para realizar logout
 export const logout = (req, res) => {
     res.status(200).json({ msg: "Logout efetuado com sucesso" });
 };
-// Função para atualizar o token de acesso (refresh token)
-export const refresh = (req, res) => {
-    const authHeader = req.headers.authorization;
-    const token = authHeader && authHeader.split(' ')[1]; // Obtém o token JWT do header Authorization
 
-    if (!token) {
-        return res.status(401).json({ msg: "Token não encontrado" });
+
+
+export const refresh = async (req, res) => {
+    const { refreshToken } = req.body;
+
+    if (!refreshToken) {
+        return res.status(401).json({ msg: "Refresh token não fornecido!" });
     }
 
     try {
-        const decoded = jwt.verify(token, process.env.TOKEN);
-        const refreshToken = jwt.sign(
-            { exp: Math.floor(Date.now() / 1000) + 24 * 60 * 60, id: decoded.id },
-            process.env.REFRESH,
-            { algorithm: "HS256" }
-        );
+        // Verifica o token de atualização
+        const decoded = jwt.verify(refreshToken, process.env.REFRESH);
 
-        const newToken = jwt.sign(
-            { exp: Math.floor(Date.now() / 1000) + 3600, id: decoded.id },
+        // Gera novo token de acesso
+        const accessToken = jwt.sign({
+            id: decoded.id
+        },
             process.env.TOKEN,
-            { algorithm: "HS256" }
+            { expiresIn: '1h' } // Expira em 1 hora
         );
 
-        res.status(200).json({ token: newToken });
+        // Gera novo token de atualização
+        const newRefreshToken = jwt.sign({
+            id: decoded.id
+        },
+            process.env.REFRESH,
+            { expiresIn: '24h' } // Expira em 24 horas
+        );
+
+        res.status(200).json({
+            msg: "Token atualizado com sucesso",
+            tokens: {
+                accessToken,
+                refreshToken: newRefreshToken
+            }
+        });
+
     } catch (err) {
         console.debug(err);
-        return res.status(403).json({ msg: "Token inválido" });
+        return res.status(403).json({ msg: "Refresh token inválido!" });
     }
 };

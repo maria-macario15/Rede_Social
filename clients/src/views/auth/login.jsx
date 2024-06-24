@@ -2,7 +2,7 @@
 import '../auth/login.css';
 // Importação do useState do React
 import { useState } from "react";
-import Cookies from 'js-cookie';
+
 
 
 
@@ -19,6 +19,7 @@ function Login() {
     // Função assíncrona para cadastrar usuário
     async function cadastrarUsuario(event) {
         event.preventDefault(); // Impede o comportamento padrão de recarregar a página
+        console.debug("1")
 
         // Objeto com os dados do usuário
         const usuarioData = {
@@ -28,6 +29,7 @@ function Login() {
             confirmPassword,
             perg
         };
+        console.debug("2")
 
         try {
             // Fazendo requisição POST para a API de registro
@@ -67,22 +69,33 @@ function Login() {
         event.preventDefault(); // Impede o comportamento padrão de recarregar a página
 
         try {
+            console.debug("13")
             // Fazendo requisição POST para a API de login
             const resposta = await fetch("/auth/login", {
+                
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
                 },
+                
                 body: JSON.stringify({ email, password })
             });
+            console.debug("14")
 
             // Verificando se a requisição foi bem-sucedida
             if (!resposta.ok) {
                 alert("Usuário ou Senha Inválidos!!!");
+                console.debug("15")
                 throw new Error("Erro na requisição " + resposta.status);
+                console.debug("15")
             } else {
                 const dados = await resposta.json();
-                localStorage.setItem("accessToken", dados.token);
+                console.debug("Token recebido:", dados.data.token);
+                localStorage.setItem("accessToken", dados.data.token);
+                localStorage.setItem("accessUser", JSON.stringify (dados.data.user));
+                console.log("Token armazenado:", localStorage.getItem("accessToken"));
+                console.debug("16")
+
                 window.location.href = "/";
             }
         } catch (error) {
@@ -132,7 +145,7 @@ function Login() {
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                         /><br />
-                        <select class="form-select" aria-label="Default select example">
+                        <select className="form-select" aria-label="Default select example">
                             <option selected>Selecione a Pergunta de Segurança</option>
                             <option value="1">Qual o nome da sua mãe?</option>
                             <option value="2">Qual é o nome do seu primeiro animal de estimação?</option>
@@ -218,12 +231,12 @@ function Login() {
             </div>
 
             {/*RECUPERAÇÃO DE SENHA*/}
-            <div class="offcanvas offcanvas-start" data-bs-backdrop="static" tabindex="-1" id="staticBackdrop" aria-labelledby="staticBackdropLabel">
-                <div class="offcanvas-header">
-                    <h5 class="offcanvas-title" id="staticBackdropLabel">Recuperação de Senha</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            <div className="offcanvas offcanvas-start" data-bs-backdrop="static" tabIndex="-1" id="staticBackdrop" aria-labelledby="staticBackdropLabel">
+                <div className="offcanvas-header">
+                    <h5 className="offcanvas-title" id="staticBackdropLabel">Recuperação de Senha</h5>
+                    <button type="button"className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                 </div>
-                <div class="offcanvas-body">
+                <div className="offcanvas-body">
                     <div>
                         <input
                             className="form-control"
