@@ -24,12 +24,12 @@ app.use(cors());
 
 app.use('/api/users/', userRouter);
 app.use('/api/auth/', authRouter);
-app.use('/api/post/',postRouter);
-app.use('/api/search/',searchRouter);
-app.use('/api/likes/',likesRouter);
-app.use('/api/friendShip/',friendShipRouter);
-app.use('/api/comment/',commentRouter);
-app.use('/api/upload/',uploadRouter);
+app.use('/api/post',postRouter);
+app.use('/api/search',searchRouter);
+app.use('/api/likes',likesRouter);
+app.use('/api/friendShip',friendShipRouter);
+app.use('/api/comment',commentRouter);
+app.use('/api/upload',uploadRouter);
 //app.use('/api/chat/',chat);
 
 

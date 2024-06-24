@@ -3,7 +3,7 @@ import multer from "multer"; // Importa a biblioteca multer para lidar com uploa
 // Configuração do local e nome do arquivo de destino para o upload
 const storage = multer.diskStorage({
     destination: function(req, file, cb) {
-        cb(null, "../client/rede-social/public/upload"); // Define o diretório de destino onde os arquivos serão armazenados
+        cb(null, "../clients/public/upload"); // Define o diretório de destino onde os arquivos serão armazenados
     },
     filename: function(req, file, cb) {
         cb(null, Date.now() + file.originalname); // Define o nome do arquivo de destino (timestamp + nome original do arquivo)
