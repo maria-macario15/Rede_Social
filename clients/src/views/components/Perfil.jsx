@@ -50,7 +50,7 @@ function Perfil() {
     return (
         <main className="container row">
             <header className=" " >
-                <a href="#" class="bi bi-pen-fill"></a>
+                <a href="#" className="bi bi-pen-fill"></a>
                 <div>      
                       <img className='first-child capa ' src={Perfil.bg_img ? Perfil.bg_img : defaultImgUrl} />
                 </div>
