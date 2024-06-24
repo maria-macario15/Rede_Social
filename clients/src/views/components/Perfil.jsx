@@ -1,11 +1,15 @@
 import { useEffect, useState } from "react";
 import Post from "./post";
+import Feed from "./Feed";
+import PostList from './postId';
+import { UserProvider } from '../others/UserContext';
 function Perfil() {
-    const [Perfil, setPerfil] = useState({
+    const [ads, setAds] = useState([]);
+
+    const [user, setUser] = useState({
         id: '',
         username: '',
         user_img: '',
-        bg_img: '',
         bio: ''
 
     });
@@ -68,86 +72,82 @@ function Perfil() {
 
     return (
 
-            
-        
-           <div className=" profile-container ">
-            <div className="profile-photo">
-                     <img className='' src={Perfil.user_img ? Perfil.user_img : defaultUserUrl} />
-            </div>
-            <div className="user-info"> 
-                 <div className="nome-usuario">{Perfil.username}</div>
-                 <div className="bio">{Perfil.bio}
-     
-     
-                <a className="bi bi-pen-fill" data-bs-toggle="offcanvas" data-bs-target="#edicao" aria-controls="edicao" href="#edicao"></a>
 
-            </div>
-                   </div>
-          <br />
+        <UserProvider>
+            <div className=" profile-container ">
+                <a className="bi bi-pen-fill editar" data-bs-toggle="offcanvas" data-bs-target="#edicao" aria-controls="edicao" href="#edicao"></a>
+                <div className="profile-photo">
 
-            <div className="">
-                  <button type="button" class="bo_perfil " disabled> Perfil </button>  
-          </div>
-            
-           
-<br />
-
-
-            <div>
-                <div className="flex flex-col items-center gap-5 w-full">
-                    {isLoading ? (
-                        <span>Carregando...</span>
-                    ) : (
-                        <div className="w-full flex flex-col gap-5 items-center">
-                            {posts.map((post) => (
-                                <Post key={post.id} post={post} />
-                            ))}
-                        </div>
-                    )}
+                    <img className='' src={user.user_img ? user.user_img : defaultUserUrl} />
                 </div>
-            </div>
+                <div className="user-info">
+                    <a className="nome-usuario">{user.username}</a>
+                    <div className="bio">
+                        <p>{Perfil.bio}</p>
 
-            <div className="offcanvas offcanvas-start" data-bs-backdrop="static" tabIndex="-1" id="edicao" aria-labelledby="edicao">
-                <div className="offcanvas-header">
-                    <h5 className="offcanvas-title" id="edicao">Edite seu perfil</h5>
-                    <button type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+
+
+
+                    </div>
                 </div>
-                <div className="offcanvas-body">
-    
-                    <br />
-                    <div className="linha"></div>
-                    <br />
-                    {/* Perfil */}
-                    <div>
-                        <input
-                            type="file"
-                            id="fileInputPerfil"
-                            style={{ display: 'none' }}
-                            onChange={handleFile}
-                        />
-                        <div className="imge">
-                            {selectedImage ? (
-                                <img src={selectedImage} alt="Selected" className="img-p" />
-                            ) : (
-                                <p>Nenhuma imagem selecionada</p>
-                            )}
+                <br />
+
+                <div className="">
+                    <button type="button" class="bo_perfil " disabled> Perfil </button>
+                </div>
+
+
+                <br />
+                <div className=" taru app-container">
+
+                    <PostList posts={posts} ads={ads} isLoading={isLoading} />
+
+
+
+                </div>
+
+                <div className="offcanvas offcanvas-start" data-bs-backdrop="static" tabIndex="-1" id="edicao" aria-labelledby="edicao">
+                    <div className="offcanvas-header">
+                        <h5 className="offcanvas-title" id="edicao">Edite seu perfil</h5>
+                        <button type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                    </div>
+                    <div className="offcanvas-body">
+
+                        <br />
+                        <div className="linha"></div>
+                        <br />
+                        {/* Perfil */}
+                        <div>
+                            <input
+                                type="file"
+                                id="fileInputPerfil"
+                                style={{ display: 'none' }}
+                                onChange={handleFile}
+                            />
+                            <div className="imge">
+                                {selectedImage ? (
+                                    <img src={selectedImage} alt="Selected" className="img-p" />
+                                ) : (
+                                    <p>Nenhuma imagem selecionada</p>
+                                )}
+                            </div>
+                            <br />
+                            <button onClick={() => document.getElementById('fileInputPerfil').click()}>
+                                Escolha sua Foto
+                            </button>
                         </div>
                         <br />
-                        <button onClick={() => document.getElementById('fileInputPerfil').click()}>
-                            Escolha seu Perfil
-                        </button>
+                        <div className="linha"></div>
+                        <br />
+                        <br />
+                        <h3 className="bio">Biografia</h3>
+                        <textarea className="form-control" id="exampleFormControlTextarea1" placeholder='Eai Taruíra, fale de você!!' rows="3"></textarea>
+                        <br />
+                        <button>Postar</button>
                     </div>
-                    <br />
-                    <div className="linha"></div>
-                    <br />
-                    <br />
-                    <h3 className="bio">Biografia</h3>
-                    <textarea className="form-control" id="exampleFormControlTextarea1" placeholder='Eai Taruíra, fale de você!!' rows="3"></textarea>
-                    <br />
-                    <button>Postar</button>
                 </div>
             </div>
-   </div>
+        </UserProvider>
     );
 }
 export default Perfil

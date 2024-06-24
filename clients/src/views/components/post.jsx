@@ -18,13 +18,14 @@ const Post = ({ post }) => {
         e.preventDefault();
         // Lógica para enviar o comentário
     };
+    const defaultUserUrl = 'https://img.freepik.com/free-icon/user_318-159711.jpg';
 
     return (
-        <div className="post-container">
+        <div className=" post-container">
             <div className="post-header">
-                <img src={user_img} alt={username} className="profile-img" />
+            <img className='profile-img' src={user_img > 0 ? user_img : defaultUserUrl} alt="User" />
+            <p className='fw-semibold fs-4'>{username}</p>
                 <div>
-                    <h2>{username}</h2>
                     <p className="post-date">{created_at}</p>
                 </div>
             </div>
@@ -33,11 +34,13 @@ const Post = ({ post }) => {
                 {img && <img src={img} alt="Post" className="post-img" />}
             </div>
             <div className="post-actions">
-                <button onClick={handleLike} className="like-button">
-                    {liked ? 'Descurtir' : 'Curtir'}
+                <button  onClick={handleLike} className="like-button">
+                <i class="bi bi-heart"/>
+                    {liked ? ' Descurtir' : ' Curtir'}
                 </button>
                 <button onClick={() => setShowComments(!showComments)} className="comment-button">
-                    {showComments ? 'Ocultar Comentários' : 'Mostrar Comentários'}
+                <i class="bi bi-chat-heart"/>
+                    {showComments ? ' Ocultar Comentários ' : ' Comentários'}
                 </button>
             </div>
             {showComments && (
@@ -51,7 +54,7 @@ const Post = ({ post }) => {
                             className="comment-input"
                         />
                         <button type="submit" className="comment-submit">
-                            Comentar
+                        Comentar
                         </button>
                     </form>
                     {/* Renderizar comentários aqui */}

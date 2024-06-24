@@ -84,14 +84,15 @@ button {
 }
 
 .profile-container {
-  width: 60%;
-  max-width: 400px;
+  width: 90%; /* Aumentei a largura para 90% da largura do contêiner pai */
+  max-width: 600px; /* Defini uma largura máxima para evitar que o perfil fique muito largo em telas maiores */
+  margin: 20px auto; /* Centralizei o contêiner horizontalmente com margens automáticas */
   background-color: #fff;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   overflow: hidden;
   text-align: center;
-  padding: 20px;
+  padding: 30px; /* Aumentei o preenchimento interno para dar mais espaço ao conteúdo */
 }
 
 .profile-photo {
@@ -279,14 +280,18 @@ button {
 }
 
 .app-container {
-  width: 60%;
-  max-width: 800px;
-  margin: 20px;
-  padding: 20px;
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
+ 
+    width: 90%; /* Aumentei a largura para 90% da largura do contêiner pai */
+    max-width: 600px; /* Defini uma largura máxima para evitar que o perfil fique muito largo em telas maiores */
+    margin: 20px auto; /* Centralizei o contêiner horizontalmente com margens automáticas */
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    text-align: center;
+    padding: 30px; /* Aumentei o preenchimento interno para dar mais espaço ao conteúdo */
+  }
+  
 
 .post-container {
   width: 100%;
@@ -343,12 +348,12 @@ button {
 }
 
 .like-button {
-  background-color: #007BFF;
+  background-color: #9065AD;
   color: white;
 }
 
 .comment-button {
-  background-color: #28A745;
+  background-color: #524796;
   color: white;
 }
 
@@ -372,7 +377,7 @@ button {
   padding: 10px;
   border: none;
   border-radius: 5px;
-  background-color: #007BFF;
+  background-color: #524796;
   color: white;
   cursor: pointer;
 }
@@ -384,7 +389,7 @@ button {
   align-items: center;
 }
 
-body {
+.taru {
   font-family: Arial, sans-serif;
   background-color: #f4f4f4;
   margin: 0;
@@ -393,16 +398,6 @@ body {
   justify-content: center;
   align-items: center;
   height: 100vh;
-}
-
-.app-container {
-  width: 60%;
-  max-width: 800px;
-  margin: 20px;
-  padding: 20px;
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .post-container,
@@ -468,12 +463,12 @@ body {
 }
 
 .like-button {
-  background-color: #007BFF;
+  background-color: #9065AD;
   color: white;
 }
 
 .comment-button {
-  background-color: #28A745;
+  background-color: #524796;
   color: white;
 }
 
@@ -497,7 +492,7 @@ body {
   padding: 10px;
   border: none;
   border-radius: 5px;
-  background-color: #007BFF;
+  background-color: #524796;
   color: white;
   cursor: pointer;
 }

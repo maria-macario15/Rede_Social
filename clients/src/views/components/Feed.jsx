@@ -2,9 +2,10 @@ import { useState, useEffect } from "react";
 import Post from "./post";
 import PostList from './postId';
 import { UserProvider } from '../others/UserContext';
+import An from "./anuncios";
 const Feed = () => {
     const [posts, setPosts] = useState([]);
-    const [ads, setAds] = useState([]);
+    const [An, setAn] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
 
 
@@ -29,7 +30,7 @@ const Feed = () => {
                     created_at: '',
                 },
             ]);
-            setAds([
+            setAn([
                 {
                     id: '',
                     ad_desc: '',
@@ -44,9 +45,9 @@ const Feed = () => {
 
     return (
         <UserProvider>
-            <div className="app-container">
+            <div className=" app-container">
    
-                <PostList posts={posts} ads={ads} isLoading={isLoading} />
+                <PostList posts={posts} ads={An} isLoading={isLoading} />
             </div>
         </UserProvider>
     );

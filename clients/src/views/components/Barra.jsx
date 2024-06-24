@@ -136,7 +136,7 @@ function Barra() {
                     <li className="nav-item">
                         <Link to="/profile">
                             <img className='user' src={user.user_img > 0 ? user.user_img : defaultUserUrl} alt="User" />
-                            <p className='fw-semibold fs-4'>{user.username}</p>
+                            <p className='fw-semibold fs-4'> {user.username}</p>
                         </Link>
                     </li>
                     <li className="nav-item">

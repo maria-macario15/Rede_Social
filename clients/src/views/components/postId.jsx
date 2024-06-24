@@ -26,7 +26,7 @@ const PostList = ({ posts, ads, isLoading }) => {
     const combinedContent = intercalatePostsAndAds(posts, ads);
 
     return (
-        <div className="post-list">
+        <div className=" taru post-list">
             {isLoading ? (
                 <span>Carregando...</span>
             ) : (

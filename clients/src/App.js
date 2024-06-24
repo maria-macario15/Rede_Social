@@ -24,7 +24,7 @@ function App() {
       {/* Rota protegida */}
       <Route path="/" element={<PrivateRoute element={Profile} />} />
       <Route path="/profile" element={<PrivateRoute element={Perfil} />} />
-      <Route path="/post" element={<PrivateRoute element={Post} />} />
+      <Route path="/post" element={<PrivateRoute element={Feed} />} />
       
       {/* Redireciona para /login se a rota não for encontrada */}
       <Route path="*" element={<Navigate to="/login" />} />
