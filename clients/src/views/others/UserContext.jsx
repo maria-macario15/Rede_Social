@@ -1,14 +1,18 @@
-// src/context/UserContext.js ou src/context/UserContext.jsx
-import React, { createContext, useState } from 'react';
+import React, { createContext, useContext, useState } from 'react';
 
-export const UserContext = createContext();
+const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
-    const [user, setUser] = useState(null);
+    const [user, setUser] = useState({
+        username: 'current_user',
+        user_img: 'images/current_user_img.jpg',
+    });
 
     return (
-        <UserContext.Provider value={{ user, setUser }}>
+        <UserContext.Provider value={{ user }}>
             {children}
         </UserContext.Provider>
     );
 };
+
+export const useUser = () => useContext(UserContext);
