@@ -5,14 +5,18 @@
 }
 
 body {
+  width: 100vw;
+  height: 100vh;
+
+
+
+  justify-content: center;
+  align-items: center;
 
   font-family: 'Montserrat', sans-serif;
-  width: 80%;
-  height: 80%;
-  /*align-items: center;
-  justify-content: center;*/
   margin: 0;
   overflow: hidden;
+  scroll-behavior: auto;
 }
 
 .feedback-container {

@@ -4,10 +4,9 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 import 'bootstrap/js/dist/util';
 import 'bootstrap/js/dist/dropdown';
 import { Offcanvas } from 'bootstrap';
-import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
-
+import { useNavigate, Link } from 'react-router-dom';
 function Barra() {
     const [user, setUser] = useState({
         id: '',
@@ -85,8 +84,9 @@ function Barra() {
 
     return (
         <main className='container-fluid'>
-            <div className="row justify-content-md-center text-center d-flex justify-content-around">
+            <div className="row justify-content-md-center text-center d-flex justify-content-around teste">
                 <nav className="navbar navbar-light bg-body-light">
+                  
                     <button className="btn btn-outline-dark col-1" type="button" data-bs-toggle="offcanvas" data-bs-target="#staticBackdrop" aria-controls="staticBackdrop">
                         <i className="bi bi-plus"></i>
                     </button>
@@ -94,10 +94,11 @@ function Barra() {
                     <form className="d-flex" role="search">
                         <input className="form-control me-2 col-1" type="search" placeholder="Procurar" aria-label="Search" />
                     </form>
+
                 </nav>
             </div>
 
-            {/*CRIAR POST */}
+            {/* CRIAR POST */}
             <div className="offcanvas offcanvas-start" data-bs-backdrop="static" tabIndex="-1" id="staticBackdrop" aria-labelledby="staticBackdropLabel">
                 <div className="offcanvas-header">
                     <h5 className="offcanvas-title" id="staticBackdropLabel">Crie sua publicação</h5>
@@ -129,14 +130,14 @@ function Barra() {
                 </div>
             </div>
 
-            {/*NAVBAR LATERAL*/}
-            <div className='col-2'>
+            {/* NAVBAR LATERAL */}
+            <div className='col-2 '>
                 <ul className="nav flex-column nav-pills me-3">
                     <li className="nav-item">
-                        <a href="#">
-                            <img className='user' src={user.user_img ? user.user_img : defaultUserUrl} alt="User" />
-                           <p className='fw-semibold fs-4 '>{user.username}</p> 
-                        </a>
+                        <Link to="/profile">
+                            <img className='user' src={user.user_img > 0 ? user.user_img : defaultUserUrl} alt="User" />
+                            <p className='fw-semibold fs-4'>{user.username}</p>
+                        </Link>
                     </li>
                     <li className="nav-item">
                         <a className="nav-link text-light te bi bi-person" aria-current="page" href="amigos"> Amigos</a>
@@ -151,14 +152,16 @@ function Barra() {
                         <a className="nav-link text-light te bi bi-people" aria-current="page" href="grupos"> Grupos</a>
                     </li>
                     <li className="nav-item">
-
-                        <a className="nav-link text-light te  bi bi-emoji-smile" aria-current="page" href='feedback'> Feedback</a>
-
+                        <a className="nav-link text-light te bi bi-emoji-smile" aria-current="page" href='feedback'> Feedback</a>
                     </li>
                 </ul>
+                <div className='p-3 '>
+                    <button onClick={handleNavigateToFeed}>Sair</button>
+                </div>
+
             </div>
 
-            {/*RODAPE*/}
+            {/* RODAPE */}
             <footer className="bg-body-tertiary text-center border border-black rounded-4 fixarRodape">
                 <strong className="text-light fw-semi">Taruíra Chapoca</strong><br />
                 <strong className="text-light fw-semi">Criado e desenvolvido por Júlio Basso e Maria Macario.</strong><br />
@@ -168,4 +171,4 @@ function Barra() {
     );
 }
 
-export default Barra;
+export default Barra

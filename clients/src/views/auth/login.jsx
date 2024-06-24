@@ -62,8 +62,56 @@ function Login() {
             setError(error.message);
             setSuccess('');
         }
-    }
+    
 
+    {/*RECUPERAÇÂO
+    function recu(){
+
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const response = await fetch('/login/recu', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ username, email, perg })
+        });
+        try {
+            // Fazendo requisição POST para a API de registro
+            const resposta = await fetch('/login/recu', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(usuarioData)
+            });
+
+            // Convertendo a resposta para JSON
+            const data = await resposta.json();
+
+            // Verificando se a requisição foi bem-sucedida
+            if (!resposta.ok) {
+                console.debug("Erro ao recuperar senha");
+                setError(data.msg || "Erro desconhecido");
+                setSuccess('');
+            } else {
+                alert('Senha recuperada');
+                console.debug("Senha recuperada");
+                setSuccess(data.msg);
+                setError('');
+                window.location.href = '/login';
+            }
+
+        } catch (error) {
+            console.debug(error);
+            setError(error.message);
+            setSuccess('');
+        }
+    
+    }
+}*/ }
+ }
     // Função assíncrona para realizar login
     async function handleLogin(event) {
         event.preventDefault(); // Impede o comportamento padrão de recarregar a página
@@ -72,12 +120,12 @@ function Login() {
             console.debug("13")
             // Fazendo requisição POST para a API de login
             const resposta = await fetch("/auth/login", {
-                
+
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
                 },
-                
+
                 body: JSON.stringify({ email, password })
             });
             console.debug("14")
@@ -92,7 +140,7 @@ function Login() {
                 const dados = await resposta.json();
                 console.debug("Token recebido:", dados.data.token);
                 localStorage.setItem("accessToken", dados.data.token);
-                localStorage.setItem("accessUser", JSON.stringify (dados.data.user));
+                localStorage.setItem("accessUser", JSON.stringify(dados.data.user));
                 console.log("Token armazenado:", localStorage.getItem("accessToken"));
                 console.debug("16")
 
@@ -122,7 +170,7 @@ function Login() {
 
     // Retorno do componente Login
     return (
-        <main>
+        <main className='login'>
             <div className="cont" id="cont">
                 {/* Painel de Cadastro */}
                 <div className="form-cont sign-up-cont">
@@ -234,23 +282,31 @@ function Login() {
             <div className="offcanvas offcanvas-start" data-bs-backdrop="static" tabIndex="-1" id="staticBackdrop" aria-labelledby="staticBackdropLabel">
                 <div className="offcanvas-header">
                     <h5 className="offcanvas-title" id="staticBackdropLabel">Recuperação de Senha</h5>
-                    <button type="button"className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                    <button type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                 </div>
                 <div className="offcanvas-body">
                     <div>
                         <input
                             className="form-control"
                             type="text"
-                            placeholder="Nome" />
+                            placeholder="Nome"
+                            value={username}
+                            onChange={(e) => setUserName(e.target.value)} />
+
                         <input
                             className="form-control"
                             type="email"
-                            placeholder="E-mail" />
+                            placeholder="E-mail"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)} />
                         <input
                             className="form-control"
                             type="text"
-                            placeholder="Resposta de Segurança" />
+                            placeholder="Resposta de Segurança"
+                            value={perg}
+                            onChange={(e) => setPerg(e.target.value)} />
                     </div>
+                 
                     <button type="submit" className="btn btn-outline-dark">Recupere</button>
                 </div>
             </div>

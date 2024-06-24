@@ -67,27 +67,31 @@ function Perfil() {
 
 
     return (
-        <main className="container row">
-            <header className=" ">
-                <a href="#" className="bi bi-pen-fill"></a>
-                <div>
-                    <img className='first-child capa' src={Perfil.bg_img ? Perfil.bg_img : defaultImgUrl} />
-                </div>
-                <div>
-                    <img className='last-child' src={Perfil.user_img ? Perfil.user_img : defaultUserUrl} />
-                </div>
-            </header>
 
-            <div className="nome-usuario">{Perfil.username}</div>
-            <div className="bio">{Perfil.bio}</div>
-
-            <div className="bo_perfil">
-                <strong className="text-light fw-semi">Perfil</strong>
+            
+        
+           <div className=" profile-container ">
+            <div className="profile-photo">
+                     <img className='' src={Perfil.user_img ? Perfil.user_img : defaultUserUrl} />
             </div>
-            <br />
-            <br />
+            <div className="user-info"> 
+                 <div className="nome-usuario">{Perfil.username}</div>
+                 <div className="bio">{Perfil.bio}
+     
+     
+                <a className="bi bi-pen-fill" data-bs-toggle="offcanvas" data-bs-target="#edicao" aria-controls="edicao" href="#edicao"></a>
 
-            <div><h1>testetetste</h1></div>
+            </div>
+                   </div>
+          <br />
+
+            <div className="">
+                  <button type="button" class="bo_perfil " disabled> Perfil </button>  
+          </div>
+            
+           
+<br />
+
 
             <div>
                 <div className="flex flex-col items-center gap-5 w-full">
@@ -109,27 +113,7 @@ function Perfil() {
                     <button type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                 </div>
                 <div className="offcanvas-body">
-                    {/* Capa */}
-                    <div>
-                        <input
-                            type="file"
-                            id="fileInputCapa"
-                            style={{ display: 'none' }}
-                            onChange={handleFile}
-                        />
-                        <div className="img">
-                            {selectedImage ? (
-                                <img src={selectedImage} alt="Selected" className="img-pre" />
-                            ) : (
-                                <p>Nenhuma imagem selecionada</p>
-                            )}
-                        </div>
-                        <br />
-                        <button onClick={() => document.getElementById('fileInputCapa').click()}>
-                            Escolha sua Capa
-                        </button>
-                    </div>
-                    {/* Capa */}
+    
                     <br />
                     <div className="linha"></div>
                     <br />
@@ -163,7 +147,7 @@ function Perfil() {
                     <button>Postar</button>
                 </div>
             </div>
-        </main>
+   </div>
     );
 }
 export default Perfil
