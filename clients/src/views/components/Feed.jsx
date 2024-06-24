@@ -1,58 +1,62 @@
-import { useState, useEffect } from "react";
-import Post from "./post";
-import PostList from './postId';
-import { UserProvider } from '../others/UserContext';
-import An from "./anuncios";
-const Feed = () => {
-    const [posts, setPosts] = useState([]);
-    const [An, setAn] = useState([]);
-    const [isLoading, setIsLoading] = useState(true);
+import React, { useState } from 'react';
 
+const PostComponent = ({ post }) => {
+    const { post_desc, img, username, user_img, created_at } = post;
 
-    useEffect(() => {
-        // Simular chamada à API para posts e anúncios
-        setTimeout(() => {
-            setPosts([
-                {
-                    id: '',
-                    post_desc: '',
-                    img: '',
-                    username: '',
-                    user_img: '',
-                    created_at: '',
-                },
-                {
-                    id: '',
-                    post_desc: '',
-                    img: '',
-                    username: '',
-                    user_img: '',
-                    created_at: '',
-                },
-            ]);
-            setAn([
-                {
-                    id: '',
-                    ad_desc: '',
-                    img: '',
-                    company_name: '',
-                    created_at: '',
-                },
-            ]);
-            setIsLoading(false);
-        }, 1000);
-    }, []);
+    const [comment_desc, setComment_desc] = useState('');
+    const [showComments, setShowComments] = useState(false);
+    const [liked, setLiked] = useState(false);
+
+    const handleLike = () => {
+        setLiked(!liked);
+    };
+
+    const handleCommentSubmit = (e) => {
+        e.preventDefault();
+        // Lógica para enviar o comentário
+        setComment_desc('');
+    };
 
     return (
-        <UserProvider>
-            <div className=" app-container">
-   
-                <PostList posts={posts} ads={An} isLoading={isLoading} />
+        <div className="post-container">
+            <div className="post-header">
+                <img src={user_img} alt={username} className="profile-img" />
+                <div>
+                    <h2>{username}</h2>
+                    <p className="post-date">{created_at}</p>
+                </div>
             </div>
-        </UserProvider>
+            <div className="post-body">
+                <p>{post_desc}</p>
+                {img && <img src={img} alt="Post" className="post-img" />}
+            </div>
+            <div className="post-actions">
+                <button onClick={handleLike} className="bi bi-heart like-button ">
+                    {liked ? 'Descurtir' : ''}
+                </button>
+                <button onClick={() => setShowComments(!showComments)} className="comment-button">
+                    {showComments ? 'Ocultar Comentários' : 'Comentários'}
+                </button>
+            </div>
+            {showComments && (
+                <div className="post-comments">
+                    <form onSubmit={handleCommentSubmit} className="comment-form">
+                        <input
+                            type="text"
+                            value={comment_desc}
+                            onChange={(e) => setComment_desc(e.target.value)}
+                            placeholder="Adicione um comentário..."
+                            className="comment-input"
+                        />
+                        <button type="submit" className="comment-submit">
+                            Comentar
+                        </button>
+                    </form>
+                    {/* Renderizar comentários aqui */}
+                </div>
+            )}
+        </div>
     );
 };
 
-
-
-export default Feed;
+export default PostComponent;

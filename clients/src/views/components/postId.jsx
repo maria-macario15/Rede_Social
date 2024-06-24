@@ -3,6 +3,7 @@ import Post from './post';
 import Ad from './anuncios';
 import './style.css';
 
+
 const PostList = ({ posts, ads, isLoading }) => {
     const intercalatePostsAndAds = (posts, ads) => {
         const combined = [];
@@ -26,7 +27,7 @@ const PostList = ({ posts, ads, isLoading }) => {
     const combinedContent = intercalatePostsAndAds(posts, ads);
 
     return (
-        <div className=" taru post-list">
+        <div className="post-list">
             {isLoading ? (
                 <span>Carregando...</span>
             ) : (

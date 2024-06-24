@@ -92,8 +92,9 @@ function Barra() {
     };
 
     return (
-        <main className='container-fluid'>
-            <div className="row justify-content-md-center text-center d-flex justify-content-around teste">
+        <main className='container-fluid '>
+   
+            <div className="row justify-content-md-center text-center d-flex justify-content-around teste ">
                 <nav className="navbar navbar-light bg-body-light">
                     <button className="btn btn-outline-dark col-1" type="button" data-bs-toggle="offcanvas" data-bs-target="#staticBackdrop" aria-controls="staticBackdrop">
                         <i className="bi bi-plus"></i>
@@ -103,6 +104,7 @@ function Barra() {
                         <input className="form-control me-2 col-1" type="search" placeholder="Procurar" aria-label="Search" />
                     </form>
                 </nav>
+               
             </div>
 
             {/* CRIAR POST */}
@@ -138,10 +140,10 @@ function Barra() {
 
             {/* NAVBAR LATERAL */}
             <div className='col-2 '>
-                <ul className="nav flex-column nav-pills me-3">
-                    <li className="nav-item">
+                <ul className="nav flex-column nav-pills me-3 ">
+                    <li className="nav-item ">
                         <Link to="/profile">
-                            <img className='user' src={user.user_img.length > 0 ? user.user_img : defaultUserUrl} alt="User" />
+                            <img className='user' src={user.user_img > 0 ? user.user_img : defaultUserUrl} alt="User" />
                             <p className='fw-semibold fs-4'>{user.username}</p>
                         </Link>
                     </li>
@@ -161,7 +163,8 @@ function Barra() {
                         <a className="nav-link text-light te bi bi-emoji-smile" aria-current="page" href='feedback'> Feedback</a>
                     </li>
                 </ul>
-                <div className='p-3 '>
+                <div className='p-3 '> 
+                  
                     <button onClick={handleNavigateToFeed}>Sair</button>
                 </div>
             </div>

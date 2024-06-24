@@ -290,6 +290,7 @@ button {
     overflow: hidden;
     text-align: center;
     padding: 30px; /* Aumentei o preenchimento interno para dar mais espaço ao conteúdo */
+    overflow: hidden;
   }
   
 
@@ -502,4 +503,199 @@ button {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+
+
+
+
+/* Estilo para o contêiner de posts e anúncios */
+.flex {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+}
+
+/* Estilo para os componentes de post */
+.post, .ad {
+  width: 90%;
+  max-width: 600px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  padding: 20px;
+  text-align: center;
+}
+
+/* Estilo para imagens */
+.post img, .ad img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+/* Estilo para a descrição do post */
+.post div, .ad div {
+  margin-top: 10px;
+  font-size: 16px;
+  color: #333;
+}
+
+/* Estilo para o nome de usuário */
+.post .username, .ad .company_name {
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+/* Estilo específico para o contêiner de anúncios */
+.ad {
+  background-color: #f9f9f9;
+}
+
+/* Estilo para o carregamento */
+.loading {
+  font-size: 18px;
+  color: #777;
+}
+
+/* Estilo para a imagem do usuário */
+.post .user_img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-top: 10px;
+}
+
+
+
+/* Estilo para o contêiner de posts e anúncios */
+.flex {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+}
+
+/* Estilo para os componentes de post */
+.post-container, .ad-container {
+  width: 90%;
+  max-width: 600px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  padding: 20px;
+  text-align: center;
+}
+
+/* Estilo para imagens */
+.post-img, .ad-img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+/* Estilo para a descrição do post */
+.post-body p, .ad-body p {
+  margin-top: 10px;
+  font-size: 16px;
+  color: #333;
+}
+
+/* Estilo para o nome de usuário */
+.post-header h2, .ad-header h2 {
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+/* Estilo específico para o contêiner de anúncios */
+.ad-container {
+  background-color: #f9f9f9;
+}
+
+/* Estilo para o carregamento */
+.loading {
+  font-size: 18px;
+  color: #777;
+}
+
+/* Estilo para a imagem do usuário */
+.profile-img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 10px;
+}
+
+/* Estilo para o cabeçalho do post */
+.post-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+/* Estilo para a data do post */
+.post-date {
+  font-size: 14px;
+  color: #666;
+}
+
+/* Estilo para ações do post */
+.post-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+
+
+
+/* Estilo para a seção de comentários */
+.post-comments {
+  margin-top: 20px;
+}
+
+/* Estilo para o formulário de comentários */
+.comment-form {
+  display: flex;
+}
+
+.content-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+  height: 100%;
+  overflow-y: auto; /* Adicionar rolagem vertical */
+  padding: 20px;
+  box-sizing: border-box; /* Inclui padding e border no cálculo da largura e altura */
+}
+
+
+.barra {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 60px;
+  background-color: #333;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  z-index: 1; /* Menor z-index para ficar atrás do conteúdo */
+}
+
+.barra a {
+  color: white;
+  text-decoration: none;
+  margin: 0 10px;
 }
