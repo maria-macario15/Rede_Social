@@ -7,8 +7,21 @@ import { Offcanvas } from 'bootstrap';
 import { useEffect, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import UploadComponent from './UploadComponent'; // Importa o novo componente de upload
-
+import '../context/feedback.css'
 function Barra() {
+    {/*feedback*/ }
+    const [selectedRating, setSelectedRating] = useState('');
+
+    const handleRatingClick = (rating) => {
+        setSelectedRating(rating);
+    };
+
+    const handleSendFeedback = () => {
+        // Aqui você pode implementar a lógica para enviar o feedback
+        console.log(`Feedback enviado: ${selectedRating}`);
+    };
+    {/*feedback*/ }
+
     const [user, setUser] = useState({
         id: '',
         email: '',
@@ -93,7 +106,7 @@ function Barra() {
 
     return (
         <main className='container-fluid '>
-   
+
             <div className="row justify-content-md-center text-center d-flex justify-content-around teste ">
                 <nav className="navbar navbar-light bg-body-light">
                     <button className="btn btn-outline-dark col-1" type="button" data-bs-toggle="offcanvas" data-bs-target="#staticBackdrop" aria-controls="staticBackdrop">
@@ -101,10 +114,13 @@ function Barra() {
                     </button>
                     <img src={logo} width="10%" className='col-1' alt="Logo" />
                     <form className="d-flex" role="search">
+                        <div class="input-group mb-2">
+                    <span class="input-group-text bi bi-search"></span>
                         <input className="form-control me-2 col-1" type="search" placeholder="Procurar" aria-label="Search" />
+                        </div>
                     </form>
                 </nav>
-               
+
             </div>
 
             {/* CRIAR POST */}
@@ -138,6 +154,50 @@ function Barra() {
                 </div>
             </div>
 
+
+            {/* CRIAR FEEDBACK*/}
+            <div className="offcanvas offcanvas-start" data-bs-backdrop="static" tabIndex="-1" id="feedback" aria-labelledby="staticBackdropLabel">
+                <div className="offcanvas-header">
+                    <h5 className="offcanvas-title" id="staticBackdropLabel">Crie sua publicação</h5>
+                    <button type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <div className="offcanvas-body">
+
+
+                    <div className="feedback-container">
+                        <h1>Poderia nos avaliar? </h1>
+                        <div className="ratings-container" onClick={(e) => handleRatingClick(e.target.textContent)}>
+                            <div className={`rating ${selectedRating === 'Insatisfeita' ? 'active' : ''}`}>
+                                <i className="bi bi-emoji-frown"></i>
+                                <p>Insatisfeita</p>
+                            </div>
+                            <div className={`rating ${selectedRating === 'Neutra' ? 'active' : ''}`}>
+                                <i className="bi bi-emoji-neutral"></i>
+                                <p>Neutra</p>
+                            </div>
+                            <div className={`rating ${selectedRating === 'Ameii' ? 'active' : ''}`}>
+                                <i className="bi bi-emoji-heart-eyes"></i>
+                                <p>Ameii</p>
+                            </div>
+                        </div>
+                        <textarea
+                            className="form-control"
+                            placeholder='O que você achou da nossa rede social?'
+
+                        ></textarea>
+                        <br />
+                        <button className="btn" id="send" onClick={handleSendFeedback}>Enviar</button>
+
+                        <div id="feedback">
+                            <i className="fas fa-heart"></i>
+                            <h2>Muito Obrigada!</h2>
+                            <br />
+                            <strong>Feedback: {selectedRating}</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             {/* NAVBAR LATERAL */}
             <div className='col-2 '>
                 <ul className="nav flex-column nav-pills me-3 ">
@@ -160,13 +220,12 @@ function Barra() {
                         <a className="nav-link text-light te bi bi-people" aria-current="page" href="grupos"> Grupos</a>
                     </li>
                     <li className="nav-item">
-                        <a className="nav-link text-light te bi bi-emoji-smile" aria-current="page" href='feedback'> Feedback</a>
+                        <a className="nav-link text-light te bi bi-emoji-smile" aria-current="page" data-bs-toggle="offcanvas" data-bs-target="#feedback" aria-controls="feedback"> Feedback</a>
+                    </li>
+                    <li className="nav-item">
+                        <a className="nav-link text-light te bi bi-box-arrow-right" aria-current="page" onClick={handleNavigateToFeed}> Sair</a>
                     </li>
                 </ul>
-                <div className='p-3 '> 
-                  
-                    <button onClick={handleNavigateToFeed}>Sair</button>
-                </div>
             </div>
 
             {/* RODAPE */}

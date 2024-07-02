@@ -1,62 +1,50 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from "react";
+import Post from "./Post";
+import Share from "./share";
 
-const PostComponent = ({ post }) => {
-    const { post_desc, img, username, user_img, created_at } = post;
+function Feed() {
+    const [posts, setPosts] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState(null);
 
-    const [comment_desc, setComment_desc] = useState('');
-    const [showComments, setShowComments] = useState(false);
-    const [liked, setLiked] = useState(false);
+    useEffect(() => {
+        const fetchPosts = async () => {
+            try {
+                const response = await fetch("https://example.com/api/posts");
+                if (!response.ok) {
+                    throw new Error("Erro ao carregar os posts");
+                }
+                const data = await response.json();
+                setPosts(data);
+                setIsLoading(false);
+            } catch (error) {
+                setError(error.message);
+                setIsLoading(false);
+            }
+        };
 
-    const handleLike = () => {
-        setLiked(!liked);
-    };
+        fetchPosts();
+    }, []);
 
-    const handleCommentSubmit = (e) => {
-        e.preventDefault();
-        // Lógica para enviar o comentário
-        setComment_desc('');
-    };
+    if (isLoading) {
+        return <span>Carregando...</span>;
+    }
+
+    if (error) {
+        console.debug(error);
+        return <span>Ocorreu um erro ao carregar os posts.</span>;
+    }
 
     return (
-        <div className="post-container">
-            <div className="post-header">
-                <img src={user_img} alt={username} className="profile-img" />
-                <div>
-                    <h2>{username}</h2>
-                    <p className="post-date">{created_at}</p>
-                </div>
+        <div className="flex flex-col items-center gap-5 w-full">
+            <Share />
+            <div className="w-full flex flex-col gap-5 items-center">
+                {posts.map((post, index) => (
+                    <Post key={index} post={post} />
+                ))}
             </div>
-            <div className="post-body">
-                <p>{post_desc}</p>
-                {img && <img src={img} alt="Post" className="post-img" />}
-            </div>
-            <div className="post-actions">
-                <button onClick={handleLike} className="bi bi-heart like-button ">
-                    {liked ? 'Descurtir' : ''}
-                </button>
-                <button onClick={() => setShowComments(!showComments)} className="comment-button">
-                    {showComments ? 'Ocultar Comentários' : 'Comentários'}
-                </button>
-            </div>
-            {showComments && (
-                <div className="post-comments">
-                    <form onSubmit={handleCommentSubmit} className="comment-form">
-                        <input
-                            type="text"
-                            value={comment_desc}
-                            onChange={(e) => setComment_desc(e.target.value)}
-                            placeholder="Adicione um comentário..."
-                            className="comment-input"
-                        />
-                        <button type="submit" className="comment-submit">
-                            Comentar
-                        </button>
-                    </form>
-                    {/* Renderizar comentários aqui */}
-                </div>
-            )}
         </div>
     );
-};
+}
 
-export default PostComponent;
+export default Feed;

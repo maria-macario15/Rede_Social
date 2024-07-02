@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
 
 const UploadComponent = ({ onFileSelect }) => {
-    const [selectedFile, setSelectedFile] = useState(null);
+    const [img, setImg] = useState('');
 
     const handleFileChange = (event) => {
         const file = event.target.files[0];
 
         if (file) {
-            setSelectedFile(file);
+            setImg(file);
             onFileSelect(file); // Passa o arquivo selecionado para o componente pai
         } else {
-            setSelectedFile(null);
+            setImg(null);
         }
     };
 
@@ -25,8 +25,8 @@ const UploadComponent = ({ onFileSelect }) => {
             <button onClick={() => document.getElementById('fileInput').click()}>
                 Escolha sua foto
             </button>
-            {selectedFile && (
-                <p>Arquivo selecionado: {selectedFile.name}</p>
+            {img && (
+                <p>Arquivo selecionado: {img.name}</p>
             )}
         </div>
     );

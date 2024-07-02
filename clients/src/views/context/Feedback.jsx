@@ -2,7 +2,7 @@ import './feedback.css'
 import React, { useState } from 'react';
 
 function Feedback() {
-    const [selectedRating, setSelectedRating] = useState('Ameii');
+    const [selectedRating, setSelectedRating] = useState('');
 
     const handleRatingClick = (rating) => {
         setSelectedRating(rating);

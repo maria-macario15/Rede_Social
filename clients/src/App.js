@@ -1,11 +1,11 @@
 import React from 'react';
 import { Routes, Route, Navigate, Outlet } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Login from "./views/auth/login";
+import Login from "./views/app/auth/login";
 import Profile from './views/Profile/index';
 import Barra from './views/components/Barra';
 import Perfil from './views/components/Perfil';
-import Post from './views/components/post';
+import Feed from './views/components/Feed';
 
 // Componente para rotas protegidas
 function PrivateRoute({ element: Component, ...rest }) {
@@ -30,9 +30,8 @@ function App() {
       
       {/* Rotas protegidas */}
       <Route element={<ProtectedLayout />}>
-        <Route path="/" element={<PrivateRoute element={Post} />} />
+        <Route path="/" element={<PrivateRoute element={Feed} />} />
         <Route path="/profile" element={<PrivateRoute element={Perfil} />} />
-        <Route path="/post" element={<PrivateRoute element={Post} />} />
       </Route>
 
       {/* Redireciona para /login se a rota não for encontrada */}

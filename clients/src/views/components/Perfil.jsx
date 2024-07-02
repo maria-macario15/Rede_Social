@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+/*import { useEffect, useState } from "react";
 import Post from "./post";
 import Feed from "./Feed";
 import PostList from './postId';
@@ -14,7 +14,7 @@ function Perfil() {
 
     });
 
-    {/*FILE UPLOAD*/ }
+    {/*FILE UPLOAD*/ /*
     const [selectedImage, setSelectedImage] = useState(null);
 
     const handleFile = (event) => {
@@ -32,7 +32,7 @@ function Perfil() {
             setSelectedImage(null);
         }
     };
-    {/*FILE UPLOAD*/ }
+    {/*FILE UPLOAD*/ /*}
 
     const [posts, setPosts] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
@@ -116,7 +116,7 @@ function Perfil() {
                         <br />
                         <div className="linha"></div>
                         <br />
-                        {/* Perfil */}
+                        {/* Perfil *//*}
                         <div>
                             <input
                                 type="file"
@@ -150,4 +150,4 @@ function Perfil() {
         </UserProvider>
     );
 }
-export default Perfil
+export default Perfil*/

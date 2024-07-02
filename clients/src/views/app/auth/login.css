@@ -155,7 +155,7 @@ input {
 }
 
 .overlay {
-	background-image: url(../../imgs/login.jpg);
+	background-image: url(../../../imgs/login.jpg);
 
 	background-repeat: no-repeat;
 	background-size: cover;
